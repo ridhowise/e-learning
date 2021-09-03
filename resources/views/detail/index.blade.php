@@ -84,7 +84,7 @@
               download="{{ $data->file }}">
              
                <i class="glyphicon glyphicon-download">
-                Download Power Point
+                Download File
                 </i>
              
               </a></li>
