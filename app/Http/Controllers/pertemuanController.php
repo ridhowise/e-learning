@@ -61,7 +61,8 @@ class pertemuanController extends Controller
     public function store(Request $request)
     {
 		$this->validate($request, [
-			// 'file' => 'required|file|max:1000000|mimes:mov,ogg,flv,avi,ts,wmv,mkv,docx,pptx,mp4s,mp4,qt',
+			'file' => 'required',
+            // |file|max:1000000|mimes:mov,ogg,flv,avi,ts,wmv,mkv,docx,pptx,mp4s,mp4,qt
 			'class_id' => 'required',
             'name' => 'required',
 		]);
