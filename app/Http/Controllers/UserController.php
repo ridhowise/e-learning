@@ -50,7 +50,7 @@ class UserController extends Controller
 
           
             $simpan=new User;
-		    $simpan->level_id = 2;
+		    $simpan->level_id = 1;
             $simpan->class_id = $req->input('class_id');
             $simpan->name = $req -> input('name');
             $simpan->email = $req ->input('email');
