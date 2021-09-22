@@ -19,7 +19,7 @@
         <thead>
           <tr>
             <th>No</th>
-            <th>Namee</th>
+            <th>Name</th>
             <th>Action</th>
           </tr>
         </thead>

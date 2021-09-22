@@ -22,33 +22,38 @@ class DatabaseSeeder extends Seeder
             'name' => 'Teknik Informatika 2',
             'created_at' => Carbon::now(),
         ]);
-      
+        DB::table('levels')->insert([
+            'id'=> '1',
+            'name' => 'Dosen',
+            'created_at' => Carbon::now(),
+        ]);
         DB::table('levels')->insert([
         	'id'=> '2',
             'name' => 'Mahasiswa',
             'created_at' => Carbon::now(),
         ]);
         DB::table('levels')->insert([
-            'id'=> '1',
+            'id'=> '3',
             'name' => 'Admin',
             'created_at' => Carbon::now(),
         ]);
+        
         DB::table('users')->insert([
             'id'=> '1',
-            'name' => 'Admin',
+            'name' => 'Dosen',
             'level_id'=> '1',
-            'email' => 'admin',
-            'password' => bcrypt('sirius'),
+            'email' => 'dosen',
+            'password' => bcrypt('12345'),
             'images' => 'admin.png',
             'created_at' => Carbon::now(),
         ]);
+        
          DB::table('users')->insert([
             'id'=> '2',
-            'name' => 'Anang',
-            'level_id'=> '2',
-            'class_id'=> '1',
-            'email' => 'anang',
-            'images' => 'anang.png',
+            'name' => 'Admin',
+            'level_id'=> '3',
+            'email' => 'admin',
+            'images' => 'admin.png',
             'password' => bcrypt('12345'),
             'created_at' => Carbon::now(),
         ]);

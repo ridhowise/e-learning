@@ -38,7 +38,6 @@ class LevelController extends Controller
     {
         $data = new Level();
 		$data->name = $request->name;
-		$data->status_aktif = $request->status_aktif;
 		$data->save();
 		return redirect()->route('level.index')->with('alert-success', 'Berhasil Menambahkan Data!');
     }
@@ -77,7 +76,6 @@ class LevelController extends Controller
     {
         $data = Level::where('id', $id)->first();
 		$data->name = $request->name;
-		$data->status_aktif = $request->status_aktif;
 		$data->save();
 		return redirect()->route('level.index')->with('alert-success', 'Data berhasil diubah!');
     }

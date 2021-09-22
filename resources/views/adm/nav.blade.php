@@ -19,23 +19,13 @@
     <span>Dashboard</span></a>
 </li>
 
-@if(Auth::User()->level_id=='1')
+@if(Auth::User()->level_id=='3')
 
 <!-- Divider -->
 <hr class="sidebar-divider">
 
 <!-- Heading -->
-<div class="sidebar-heading">
-  Menu
-</div>
 
-
-<!-- Nav Item - Pages Collapse Menu -->
-<li class="nav-item active"><a class="nav-link" href="{{ url('pertemuan') }}"><i class="fas fa-fw fa-users"></i><span>Pertemuan</span></a></li>
-<li class="nav-item active"><a class="nav-link" href="{{ url('quiz') }}"><i class="fas fa-fw fa-file"></i><span>Quiz/Ujian</span></a></li>
-
-<!-- Divider -->
-<hr class="sidebar-divider">
 
 <!-- Heading -->
 <div class="sidebar-heading">
