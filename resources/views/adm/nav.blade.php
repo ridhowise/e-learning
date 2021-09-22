@@ -32,7 +32,6 @@
   Manajement User
 </div>
 <li class="nav-item active"><a class="nav-link" href="{{ url('user') }}"><i class="fas fa-fw fa fa-user-circle"></i><span>Users</span></a></li>
-<li class="nav-item active"><a class="nav-link" href="{{ url('level') }}"><i class="fas fa-fw fa fa-users-cog"></i><span>Role</span></a></li>
 <li class="nav-item active"><a class="nav-link" href="{{ url('kelas') }}"><i class="fas fa-fw fa fa-door-closed"></i><span>Kelas</span></a></li>
 <!--
 <li class="nav-item active"><a class="nav-link" href="{{ url('setting') }}"><i class="fas fa-fw fa fa-cogs"></i><span>Setting</span></a></li>
