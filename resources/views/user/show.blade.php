@@ -545,8 +545,11 @@
             }
             
             .rounded-circle {
-              border-radius: 50% !important;
-            }
+              object-fit: cover;
+              border-radius: 50%;
+              height: 150px;
+              width: 150px;
+                        }
             
             .d-flex {
               display: flex !important;
