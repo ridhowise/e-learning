@@ -32,7 +32,7 @@
                                               <div class="col-lg-3 order-lg-2">
                                                 <div class="card-profile-image">
                                                   <a href="#">
-                                                    <img src="{{ URL::asset('data_file/') }}/{{$data->images}}" class="rounded-circle">
+                                                    <img src="{{ URL::asset('images/') }}/{{$data->images}}" class="rounded-circle">
                                                   </a>
                                                 </div>
                                               </div>

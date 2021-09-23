@@ -56,7 +56,7 @@
 Menu
 </div>
 <li class="nav-item active"><a class="nav-link" href="{{ url('pertemuan') }}"><i class="fas fa-fw fa-users"></i><span>Pertemuan</span></a></li>
-<li class="nav-item active"><a class="nav-link" href="{{ url('level') }}"><i class="fas fa-fw fa fa-book"></i><span>Mata Kuliah</span></a></li>
+<li class="nav-item active"><a class="nav-link" href="{{ url('quiz') }}"><i class="fas fa-fw fa-file"></i><span>Quiz/Ujian</span></a></li>
 
 <!-- Divider -->
 <hr class="sidebar-divider">

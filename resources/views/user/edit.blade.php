@@ -66,7 +66,7 @@
                                                 <div class="col-lg-10">
                                                 <input type="file" name="image" class="form-control"> 
                                                 <br>
-                                                Current pic : <img style="width:100px" src="{{ URL::asset('data_file/') }}/{{$data->images}}">
+                                                Current pic : <img style="width:100px" src="{{ URL::asset('images/') }}/{{$data->images}}">
                                                 </div>
                                             </div>
 						
