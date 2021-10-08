@@ -813,7 +813,7 @@ body {
    color: #ff4d4d;
 }
  .blog-cover {
-   background: url("https://i.ibb.co/RbZMDc0/yosemite-3.jpg");
+   background: url("https://i.ibb.co/J7BGKgk/blue.jpg");
    background-size: cover;
    border-radius: 5px 5px 0 0;
    height: 15rem;
