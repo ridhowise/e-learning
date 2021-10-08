@@ -6,7 +6,7 @@
   <div class="sidebar-brand-icon rotate-n-15">
     <i class="fas fa-edit"></i>
   </div>
-  <div class="sidebar-brand-text mx-3">Game Programming <sup></sup></div>
+  <div class="sidebar-brand-text mx-3">E-learning Support <sup></sup></div>
 </a>
 
 <!-- Divider -->
