@@ -44,8 +44,10 @@ class rekapController extends Controller
         ->count();
 
         $totalhadir=kehadiran::where('user_id', $id)->count();
+
+        $nilai = $hadir/$totalhadir*100;
         // dd($tugas);
-        return view('rekap.index',compact('kehadiran','user'));
+        return view('rekap.index',compact('kehadiran','user','nilai','hadir','totalhadir'));
     }
 
     /**

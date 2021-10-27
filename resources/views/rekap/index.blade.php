@@ -50,6 +50,13 @@
     <div class="blog-summary">
 
      Nama : {{$user->user->name}}
+     <br>
+     Kehadiran : {{$hadir}}
+     <br>
+     Total Pertemuan : {{$totalhadir}}
+     <br>
+     Nilai : {{$nilai}}
+
      <br><br>
       <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -94,11 +101,12 @@
                   @endif
 
                
-
+              
                
               </tr>
               
               @endforeach
+
           </tbody>
       </table>
     </div>
