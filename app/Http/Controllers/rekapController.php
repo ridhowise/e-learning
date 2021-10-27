@@ -36,6 +36,7 @@ class rekapController extends Controller
     {
        
         $kehadiran = kehadiran::where('user_id', $id)->get();
+        $user = kehadiran::where('user_id', $id)->first();
 
         $hadir=kehadiran::select('*')
         ->where('user_id', '=', $id)
@@ -44,7 +45,7 @@ class rekapController extends Controller
 
         $totalhadir=kehadiran::where('user_id', $id)->count();
         // dd($tugas);
-        return view('rekap.index',compact('kehadiran'));
+        return view('rekap.index',compact('kehadiran','user'));
     }
 
     /**

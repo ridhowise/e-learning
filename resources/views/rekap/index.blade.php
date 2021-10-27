@@ -48,7 +48,9 @@
       <h1><a href="#">Kehadiran</a></h1>
     </div>
     <div class="blog-summary">
-     
+
+     Nama : {{$user->user->name}}
+     <br><br>
       <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
   
