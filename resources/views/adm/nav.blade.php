@@ -46,7 +46,7 @@
 
 <!-- Nav Item - Pages Collapse Menu -->
 <li class="nav-item active"><a class="nav-link" href="{{ url('pertemuan') }}"><i class="fas fa-fw fa-users"></i><span>Pertemuan</span></a></li>
-<li class="nav-item active"><a class="nav-link" href="{{ url('quiz') }}"><i class="fas fa-fw fa-file"></i><span>Quiz/Ujian</span></a></li>
+<li class="nav-item active"><a class="nav-link" href="{{ url('exam') }}"><i class="fas fa-fw fa-file"></i><span>Quiz/Ujian</span></a></li>
 <li class="nav-item active"><a class="nav-link" href="{{url('user')}}/{{Auth::User()->id}}"><i class="fas fa-fw fa fa-door-closed"></i><span>Profile</span></a></li>
 
 <!-- Divider -->
@@ -56,7 +56,7 @@
 Menu
 </div>
 <li class="nav-item active"><a class="nav-link" href="{{ url('pertemuan') }}"><i class="fas fa-fw fa-users"></i><span>Pertemuan</span></a></li>
-<li class="nav-item active"><a class="nav-link" href="{{ url('quiz') }}"><i class="fas fa-fw fa-file"></i><span>Quiz/Ujian</span></a></li>
+<li class="nav-item active"><a class="nav-link" href="{{ url('exam') }}"><i class="fas fa-fw fa-file"></i><span>Quiz/Ujian</span></a></li>
 
 <!-- Divider -->
 <hr class="sidebar-divider">

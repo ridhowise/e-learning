@@ -15,7 +15,7 @@ use App\Models\User;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportExcel;
 
-class detailController extends Controller
+class rekapController extends Controller
 {
 	
 	
@@ -26,34 +26,25 @@ class detailController extends Controller
      */
 	 
 	public function __construct(){
-    	$this -> middleware('auth');    	
+    	$this -> middleware('auth');  
+        
+        
     	//$this -> middleware('akses:2');
     } 
 	 
     public function index($id)
     {
-        $data=pertemuan::findOrFail($id);
-        $kelas=kelas::all();
-        $split = explode(".", $data->file);
-        $ext = $split[count($split)-1];
-        $mime = $ext;
-        $tugas = tugas::where('meeting_id', $id)->get();
-        $kehadiran = kehadiran::where('meeting_id', $id)->get();
-        $mahasiswa = Auth::User()->id;
+       
+        $kehadiran = kehadiran::where('user_id', $id)->get();
 
-        $kehadiranm = kehadiran::select('*')
-        ->where('meeting_id', '=', $id)
-        ->where('user_id', '=', $mahasiswa)
-        ->first();
+        $hadir=kehadiran::select('*')
+        ->where('user_id', '=', $id)
+        ->where('status', '=', 1)
+        ->count();
 
-        $selesai = tugas::select('*')
-                ->where('meeting_id', '=', $id)
-                ->where('user_id', '=', $mahasiswa)
-                ->first();
-
-
+        $totalhadir=kehadiran::where('user_id', $id)->count();
         // dd($tugas);
-        return view('detail.index',compact('data','kelas','mime','tugas','selesai','kehadiran','kehadiranm'));
+        return view('rekap.index',compact('kehadiran'));
     }
 
     /**

@@ -5,17 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class pertemuan extends Model
+class exam extends Model
 {
-    protected $table = 'meeting';
+    protected $table = 'exam';
     public $timestamps = true;
 
     public function class()
     {
       return $this->belongsTo('App\Models\kelas', 'class_id');
     }
-    public function meetingname()
-    {
-      return $this->belongsTo('App\Models\meetingname', 'meetingname_id');
-    }
+
 }

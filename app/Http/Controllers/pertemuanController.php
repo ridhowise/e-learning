@@ -8,6 +8,7 @@ use App\Models\pertemuan;
 use App\Models\kelas;
 use App\Models\tugas;
 use App\Models\kehadiran;
+use App\Models\meetingname;
 use Image;
 use File;
 use Auth;
@@ -37,8 +38,11 @@ class pertemuanController extends Controller
         $student=Auth::User()->class_id;
         $students=pertemuan::where('class_id', $student)->get();
         $kelas=kelas::all();
+        $pertemuans=meetingname::where('status','0') ->get();
+        $pertemuanss=meetingname::all();
+
         // dd($list);
-        return view('pertemuan.index',compact('data','kelas','students'));
+        return view('pertemuan.index',compact('data','kelas','students','pertemuans','pertemuanss'));
     }
 
     /**
@@ -61,29 +65,40 @@ class pertemuanController extends Controller
     public function store(Request $request)
     {
 		$this->validate($request, [
-			'file' => 'required',
+			'file' => 'required|mimes:mov,ogg,flv,avi,ts,wmv,mkv,docx,pptx,mp4s,mp4|max:100048',
+            'doc' => 'required||mimes:docx,doc,pptx,ppt,pdf|max:100048',
             // |file|max:1000000|mimes:mov,ogg,flv,avi,ts,wmv,mkv,docx,pptx,mp4s,mp4,qt
 			'class_id' => 'required',
-            'name' => 'required',
 		]);
- 
+        $tujuan_upload = 'data_file';
+
+        $doc = $request->file('doc');
+		$name_file = time()."_".$doc->getClientOriginalName();
+		$doc->move($tujuan_upload,$name_file);
+
 		// menyimpan data file yang diupload ke variabel $file
 		$file = $request->file('file');
- 
 		$nama_file = time()."_".$file->getClientOriginalName();
- 
       	        // isi dengan nama folder tempat kemana file diupload
-		$tujuan_upload = 'data_file';
 		$file->move($tujuan_upload,$nama_file);
         
         $data = new pertemuan;
-		$data->name = $request->name;
+		$data->meetingname_id = $request->meetingname_id;
         $data->class_id = $request->class_id;
         $data->file = $nama_file;
+        $data->doc = $name_file;
         $data->description = $request->description;
         $data->assignment = $request->assignment;
         $data->desc = $request->desc;
         $data->deadline = $request->deadline;
+
+        $idmeeting= $data->meetingname_id;
+        $meetingname=meetingname::findOrFail($idmeeting);
+        $meetingname->status = 1;
+        $meetingname->save();
+
+
+
     
         $now = Carbon::now()->timezone('Asia/Makassar');
         $tommorow = $now->addDays(1);
@@ -104,7 +119,8 @@ class pertemuanController extends Controller
             $kehadiran->status = 0;
             $kehadiran->user_id = $user->id;
             $kehadiran->meeting_id = $data->id;
-           
+            $kehadiran->class_id = $data->class_id;
+
             $kehadiran->save();
         }
 
@@ -167,9 +183,10 @@ class pertemuanController extends Controller
 		$tujuan_upload = 'data_file';
 		$file->move($tujuan_upload,$nama_file);
 
-		$data->name = $request->name;
+		$data->meetingname_id = $request->meetingname_id;
         $data->class_id = $request->class_id;
         $data->file = $nama_file;
+        $data->doc = $request->doc;
         $data->assignment = $request->assignment;
         $data->description = $request->description;
         $data->desc = $request->desc;
@@ -178,8 +195,53 @@ class pertemuanController extends Controller
 	
         $data -> save();
 
+        }elseif ($request->file('docs')) {
+            $file = $request->file('docs');
+     
+            $name_file = time()."_".$file->getClientOriginalName();
+     
+                      // isi dengan nama folder tempat kemana file diupload
+            $tujuan_upload = 'data_file';
+            $file->move($tujuan_upload,$name_file);
+    
+            $data->meetingname_id = $request->meetingname_id;
+            $data->class_id = $request->class_id;
+            $data->file = $request->file;
+            $data->doc = $name_file;
+            $data->assignment = $request->assignment;
+            $data->description = $request->description;
+            $data->desc = $request->desc;
+            $data->deadline = $request->deadline;
+    
+        
+            $data -> save();
+        }elseif ($request->file('docs') && $request->file('files')) {
+            $tujuan_upload = 'data_file';
+
+        $doc = $request->file('docs');
+		$name_file = time()."_".$doc->getClientOriginalName();
+		$doc->move($tujuan_upload,$name_file);
+
+		// menyimpan data file yang diupload ke variabel $file
+		$file = $request->file('files');
+		$nama_file = time()."_".$file->getClientOriginalName();
+      	        // isi dengan nama folder tempat kemana file diupload
+		$file->move($tujuan_upload,$nama_file);
+        
+    
+		    $data->meetingname_id = $request->meetingname_id;
+            $data->class_id = $request->class_id;
+            $data->file = $nama_file;
+            $data->doc = $name_file;
+            $data->assignment = $request->assignment;
+            $data->description = $request->description;
+            $data->desc = $request->desc;
+            $data->deadline = $request->deadline;
+    
+        
+            $data -> save();
     } else {
-        $data->name = $request->name;
+		$data->meetingname_id = $request->meetingname_id;
         $data->class_id = $request->class_id;
         $data->file = $request->file;
         $data->description = $request->description;

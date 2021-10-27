@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\Models\pertemuan;
+use App\Models\exam;
 use App\Models\kelas;
-use App\Models\tugas;
+use App\Models\answer;
 use App\Models\kehadiran;
 use Image;
 use File;
@@ -15,7 +15,7 @@ use App\Models\User;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportExcel;
 
-class detailController extends Controller
+class answerController extends Controller
 {
 	
 	
@@ -32,28 +32,19 @@ class detailController extends Controller
 	 
     public function index($id)
     {
-        $data=pertemuan::findOrFail($id);
+        $data=exam::findOrFail($id);
         $kelas=kelas::all();
-        $split = explode(".", $data->file);
-        $ext = $split[count($split)-1];
-        $mime = $ext;
-        $tugas = tugas::where('meeting_id', $id)->get();
-        $kehadiran = kehadiran::where('meeting_id', $id)->get();
+        $answer = answer::where('exam_id', $id)->get();
         $mahasiswa = Auth::User()->id;
 
-        $kehadiranm = kehadiran::select('*')
-        ->where('meeting_id', '=', $id)
-        ->where('user_id', '=', $mahasiswa)
-        ->first();
-
-        $selesai = tugas::select('*')
-                ->where('meeting_id', '=', $id)
+        $selesai = answer::select('*')
+                ->where('exam_id', '=', $id)
                 ->where('user_id', '=', $mahasiswa)
                 ->first();
 
 
-        // dd($tugas);
-        return view('detail.index',compact('data','kelas','mime','tugas','selesai','kehadiran','kehadiranm'));
+        // dd($answer);
+        return view('answer.index',compact('data','kelas','answer','selesai'));
     }
 
     /**
@@ -63,10 +54,10 @@ class detailController extends Controller
      */
     public function create($id)
     {
-        $data=pertemuan::findOrFail($id);
-        $tugas = tugas::where('meeting_id', $id)->get();
+        $data=exam::findOrFail($id);
+        $answer = answer::where('exam_id', $id)->get();
         $kelas=kelas::all();
-		return view('detail.create',compact('data','kelas'));
+		return view('answer.create',compact('data','kelas'));
 		
     }
 
@@ -93,11 +84,11 @@ class detailController extends Controller
 		$tujuan_upload = 'data_file';
 		$file->move($tujuan_upload,$nama_file);
         
-        $meeting=pertemuan::findOrFail($id);
+        $exam=exam::findOrFail($id);
 
         $mahasiswa = Auth::User()->id;
-        $data = tugas::select('*')
-        ->where('meeting_id', '=', $id)
+        $data = answer::select('*')
+        ->where('exam_id', '=', $id)
         ->where('user_id', '=', $mahasiswa)
         ->first();
        
@@ -114,7 +105,7 @@ class detailController extends Controller
 
 
         //request()->pic->move(public_path('assets/images'), $imageName);
-        //return redirect('pertemuan');
+        //return redirect('exam');
 		
         return back();
            
@@ -135,7 +126,7 @@ class detailController extends Controller
      */
     public function edit($id)
     {
-        $data = pertemuan::findOrFail($id);
+        $data = exam::findOrFail($id);
         return response()->json([
             'data' => $data,
     
@@ -151,37 +142,17 @@ class detailController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = pertemuan::where('id', $id)->first();
+        $data = exam::where('id', $id)->first();
 
-		if ($request->file('image')) {
-            $image = $request->file('image');
-
-            $file_name = time(). rand(1111, 9999) . '.' .$image->getClientOriginalExtension();
-
-            // $save_Path = 'images/'.$file_name;
-            //$save_Path = public_path('images/'.$file_name);
-
-            //Image::make($image->getRealPath())->resize(300, 236)->save($save_Path);
-            $image->move('images',$file_name);
-            \Image::make('images/'.$file_name)->resize(300, 300)->save('images/'.$file_name);
-        } else {
-            $file_name = null;
-        }
-        
-        $data = new pertemuan;
-		$data->name = $request->name;
-        $data->tanggal = $request->tanggal;
-		$data->debit = $request->debit;
-        $data->credit = $request->credit;
-        $data->source = $request->source;
-        $data->balance = $request->balance;
-        $data->pic = $file_name;
+	
+		$data->nilai = $request->nilai;
+       
 
 
 
 	
         $data -> save();
-		return redirect()->route('pertemuan.index')->with('alert-success', 'Data berhasil diubah!');
+		return redirect()->route('exam.index')->with('alert-success', 'Data berhasil diubah!');
 		
     }
 
@@ -199,15 +170,15 @@ class detailController extends Controller
         $hadir->save();
     
     
-        return back()->with('style', 'warning')->with('alert', '')->with('msg', 'Anda telah hadir di pertemuan ini');
+        return back()->with('style', 'warning')->with('alert', '')->with('msg', 'Anda telah hadir di exam ini');
     }
     public function destroy($id)
     {
-        $data = pertemuan::where('id', $id)->first();
+        $data = exam::where('id', $id)->first();
 		/**$picture = $data->pic;
         File::delete('images/'.$picture);
 		*/
-		pertemuan::find($id)->delete();
+		exam::find($id)->delete();
         return back();
     }
     public function export_excel()

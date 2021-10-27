@@ -43,11 +43,32 @@ class CreateUsersTable extends Migration
 
         });
 
+        Schema::create('pertemuan', function (Blueprint $kolom) {
+            $kolom->increments('id');
+            $kolom->string('name');  
+			$kolom->timestamps();
+        });
+
+        Schema::create('meetingname', function (Blueprint $kolom) {
+            $kolom->increments('id');
+            $kolom->string('name')->nullable();          
+            $kolom->unsignedInteger('class_id')->nullable();
+            $kolom->unsignedInteger('pertemuan_id')->nullable();
+            $kolom->string('status')->nullable();          
+            $kolom->timestamps();
+        });
+      
+        Schema::table('meetingname', function (Blueprint $kolom) {
+          $kolom->foreign('class_id')->references('id')->on('class')->onDelete('cascade')->onUpdate('cascade');
+          $kolom->foreign('pertemuan_id')->references('id')->on('pertemuan')->onDelete('cascade')->onUpdate('cascade');
+        });
+        
         Schema::create('meeting', function (Blueprint $kolom) {
             $kolom->increments('id');
             $kolom->unsignedInteger('class_id')->nullable();
-            $kolom->string('name');
+            $kolom->unsignedInteger('meetingname_id')->nullable();
             $kolom->string('file');
+            $kolom->string('doc');
             $kolom->string('tommorow')->nullable();
             $kolom->string('assignment')->nullable();
             $kolom->string('description')->nullable();
@@ -58,13 +79,17 @@ class CreateUsersTable extends Migration
       
         Schema::table('meeting', function (Blueprint $kolom) {
           $kolom->foreign('class_id')->references('id')->on('class')->onDelete('cascade')->onUpdate('cascade');
+          $kolom->foreign('meetingname_id')->references('id')->on('meetingname')->onDelete('cascade')->onUpdate('cascade');
 
         });
+
+        
 
         Schema::create('kehadiran', function (Blueprint $kolom) {
             $kolom->increments('id');
             $kolom->unsignedInteger('meeting_id')->nullable();
             $kolom->unsignedInteger('user_id')->nullable();
+            $kolom->unsignedInteger('class_id')->nullable();
             $kolom->string('status')->nullable();
 
            
@@ -74,6 +99,7 @@ class CreateUsersTable extends Migration
         Schema::table('kehadiran', function (Blueprint $kolom) {
           $kolom->foreign('meeting_id')->references('id')->on('meeting')->onDelete('cascade')->onUpdate('cascade');
           $kolom->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+          $kolom->foreign('class_id')->references('id')->on('class')->onDelete('cascade')->onUpdate('cascade');
 
         });
         
@@ -93,6 +119,39 @@ class CreateUsersTable extends Migration
           $kolom->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
         });
+
+        Schema::create('exam', function (Blueprint $kolom) {
+            $kolom->increments('id');
+            $kolom->string('name')->nullable();
+            $kolom->string('types')->nullable();
+            $kolom->string('status')->nullable();
+            $kolom->unsignedInteger('class_id')->nullable();
+            $kolom->string('file');
+            $kolom->timestamps();
+        });
+      
+        Schema::table('exam', function (Blueprint $kolom) {
+          $kolom->foreign('class_id')->references('id')->on('class')->onDelete('cascade')->onUpdate('cascade');
+        });
+
+        Schema::create('answer', function (Blueprint $kolom) {
+            $kolom->increments('id');
+            $kolom->unsignedInteger('exam_id')->nullable();
+            $kolom->unsignedInteger('user_id')->nullable();
+            $kolom->string('file')->nullable();
+            $kolom->string('status')->nullable();
+            $kolom->string('nilai')->nullable();
+            $kolom->timestamps();
+        });
+      
+        Schema::table('answer', function (Blueprint $kolom) {
+          $kolom->foreign('exam_id')->references('id')->on('exam')->onDelete('cascade')->onUpdate('cascade');
+          $kolom->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+
+        });
+
+
+
 
         Schema::create('quiz', function (Blueprint $kolom) {
             $kolom->increments('id');

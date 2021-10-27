@@ -16,7 +16,14 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Pertemuan</h6>
+    @if (Auth::User()->level_id=='2')
+
+    <h6 class="m-0 font-weight-bold text-primary">Pertemuan     <a class="btn btn-sm btn-primary" type="submit" href="rekap/{{Auth::User()->id}}">Rekap </a>
+    </h6>
+    @else 
+    <h6 class="m-0 font-weight-bold text-primary">Pertemuan </h6>
+
+@endif
   </div>
   <div class="card-body">
     @if (Auth::User()->level_id=='1')
@@ -35,9 +42,8 @@
         <thead style="">
           <tr>
             <th>Nama</th>
-            <th>Kelas</th>
-            <th>File</th>
-            <th>Tugas</th>
+            <th>Dokumen</th>
+            <th>Video</th>
             <th>Action</th>
 
           </tr>
@@ -45,20 +51,18 @@
         <tfoot>
           <tr>
             <th>Nama</th>
-            <th>Kelas</th>
-            <th>File</th>
-            <th>Tugas</th>
+            <th>Dokumen</th>
+            <th>Video</th>
             <th>Action</th>
           </tr>
         </tfoot>
         <tbody>
          
        @foreach($data as $key => $items)
-              <td>{{ $items->name }} </td>
-              <td>{{$items->class->name}}</td>
-              <td>
-              <a href="{{ url('data_file') }}/{{ $items->file }}"
-              download="{{ $items->file }}">
+             <td>{{ $items->meetingname->name }} </td>
+             <td>
+              <a href="{{ url('data_file') }}/{{ $items->doc }}"
+              download="{{ $items->doc }}">
               <button type="button" class="btn btn-primary">
                <i class="glyphicon glyphicon-download">
                 Download
@@ -66,12 +70,17 @@
               </button>
               </a>
               </td>
-              @if($items->assignment == null)
-              <td> <button type="button"" class="btn btn-sm btn-danger" > Tidak Ada </a> </button></td>
-              @else
-              <td> <button type="button" class="btn btn-sm btn-success" > Ada </a> </button></td>
-              @endif
-				      <td>
+              <td>
+                <a href="{{ url('data_file') }}/{{ $items->file }}"
+                download="{{ $items->file }}">
+                <button type="button" class="btn btn-primary">
+                 <i class="glyphicon glyphicon-download">
+                  Download
+                  </i>
+                </button>
+                </a>
+                </td>
+                <td>
                 <form action="{{ route('pertemuan.destroy', $items->id) }}" method="post">
                     {{ csrf_field() }}
                     {{ method_field('DELETE') }}
@@ -103,9 +112,8 @@
       <thead style="">
         <tr>
           <th>Nama</th>
-          <th>Kelas</th>
-          <th>File</th>
-          <th>Tugas</th>
+          <th>Dokumen</th>
+          <th>Video</th>
           <th>Action</th>
 
         </tr>
@@ -113,20 +121,18 @@
       <tfoot>
         <tr>
           <th>Nama</th>
-          <th>Kelas</th>
-          <th>File</th>
-          <th>Tugas</th>
+          <th>Dokumen</th>
+          <th>Video</th>
           <th>Action</th>
         </tr>
       </tfoot>
       <tbody>
        
      @foreach($students as $key => $items)
-            <td>{{ $items->name }} </td>
-            <td>{{$items->class->name}}</td>
+            <td>{{ $items->meetingname->name }} </td>
             <td>
-            <a href="{{ url('data_file') }}/{{ $items->file }}"
-            download="{{ $items->file }}">
+            <a href="{{ url('data_file') }}/{{ $items->doc }}"
+            download="{{ $items->doc }}">
             <button type="button" class="btn btn-primary">
              <i class="glyphicon glyphicon-download">
               Download
@@ -134,11 +140,17 @@
             </button>
             </a>
             </td>
-            @if($items->assignment == null)
-            <td> <button type="button"  class="btn btn-sm btn-danger" > Tidak Ada </a> </button></td>
-            @else
-            <td> <button type="button"  class="btn btn-sm btn-success" > Ada </a> </button></td>
-            @endif
+            <td>
+              <a href="{{ url('data_file') }}/{{ $items->file }}"
+              download="{{ $items->file }}">
+              <button type="button" class="btn btn-primary">
+               <i class="glyphicon glyphicon-download">
+                Download
+                </i>
+              </button>
+              </a>
+              </td>
+           
             <td>
               <form action="{{ route('pertemuan.destroy', $items->id) }}" method="post">
                   {{ csrf_field() }}
@@ -174,51 +186,41 @@
         <div class="modal-body">
         
           
-       
+          <div class="form-group row"><label class="col-lg-3 form-control-label">Kelas</label>
+
+
+
+            <div class="col-lg-9">
+            <select name="class_id" id="class_id" class="form-control{{ $errors->has('class_id') ? ' is-invalid' : '' }}">
+                <option value="0">-- Pilih Kelas --</option>
+                @foreach($kelas as $class)
+                <option value="{{ $class->id }}"> {{ $class->name }}</option>
+                @endforeach
+               
+              </select>
+
+              @if ($errors->has('class_id'))
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $errors->first('class_id') }}</strong>
+                  </span>
+              @endif
+            </div>
+        </div> 
 
           <div class="form-group row"><label class="col-lg-3 form-control-label">Pertemuan</label>
 
             <div class="col-lg-9">
-            <select name="name" id="name" class="form-control select" required>
+            <select name="meetingname_id" id="meetingname" class="form-control select" required>
             <option value="0">-- Pilih Pertemuan --</option>
-            <option value="Pertemuan 1">Pertemuan 1</option>
-            <option value="Pertemuan 2">Pertemuan 2</option>
-            <option value="Pertemuan 3">Pertemuan 3</option>
-            <option value="Pertemuan 4">Pertemuan 4</option>
-            <option value="Pertemuan 5">Pertemuan 5</option>
-            <option value="Pertemuan 6">Pertemuan 6</option>
-            <option value="Pertemuan 7">Pertemuan 7</option>
-            <option value="Pertemuan 8">Pertemuan 8</option>
-            <option value="Pertemuan 9">Pertemuan 9</option>
-            <option value="Pertemuan 10">Pertemuan 10</option>
-            <option value="Pertemuan 11">Pertemuan 11</option>
-            <option value="Pertemuan 12">Pertemuan 12</option>
-            <option value="Pertemuan 13">Pertemuan 13</option>
-            <option value="Pertemuan 14">Pertemuan 14</option>
+            @foreach($pertemuans as $pertemuan)
+            <option value="{{ $pertemuan->id }}"> {{ $pertemuan->name }}</option>
+          @endforeach
+            
             </select>
             </div>
             </div>
 
-            <div class="form-group row"><label class="col-lg-3 form-control-label">Kelas</label>
-
-
-
-              <div class="col-lg-9">
-              <select name="class_id" id="class_id" class="form-control{{ $errors->has('class_id') ? ' is-invalid' : '' }}">
-                  <option>-- Pilih Kelas --</option>
-
-                  @foreach($kelas as $class)
-                    <option value="{{ $class->id }}"> {{ $class->name }}</option>
-                  @endforeach
-                </select>
-
-                @if ($errors->has('class_id'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('class_id') }}</strong>
-                    </span>
-                @endif
-              </div>
-          </div> 
+           
 
           <div class="form-group row"><label class="col-lg-3 form-control-label">Deskripsi</label>
 
@@ -226,8 +228,12 @@
             <textarea  name="description" placeholder="Deskripsi" class="form-control" > </textarea>
             </div>
           </div>
-
-          <div class="form-group row"><label class="col-lg-3 form-control-label">File Pembelajaran </label>
+          <div class="form-group row"><label class="col-lg-3 form-control-label">Dokumen </label>
+            <div class="col-lg-9">
+              <input type="file" name="doc">
+            </div>
+          </div>
+          <div class="form-group row"><label class="col-lg-3 form-control-label">Video </label>
             <div class="col-lg-9">
               <input type="file" name="file">
             </div>
@@ -296,22 +302,11 @@
           
           <div class="form-group row"><label class="col-lg-3 form-control-label">Pertemuan</label>
             <div class="col-lg-9">
-              <select name="name" id="name" class="form-control select" required>
+              <select name="meetingname_id" id="meetingname" class="form-control select" required>
               <option value="0">-- Pilih Pertemuan --</option>
-              <option value="Pertemuan 1">Pertemuan 1</option>
-              <option value="Pertemuan 2">Pertemuan 2</option>
-              <option value="Pertemuan 3">Pertemuan 3</option>
-              <option value="Pertemuan 4">Pertemuan 4</option>
-              <option value="Pertemuan 5">Pertemuan 5</option>
-              <option value="Pertemuan 6">Pertemuan 6</option>
-              <option value="Pertemuan 7">Pertemuan 7</option>
-              <option value="Pertemuan 8">Pertemuan 8</option>
-              <option value="Pertemuan 9">Pertemuan 9</option>
-              <option value="Pertemuan 10">Pertemuan 10</option>
-              <option value="Pertemuan 11">Pertemuan 11</option>
-              <option value="Pertemuan 12">Pertemuan 12</option>
-              <option value="Pertemuan 13">Pertemuan 13</option>
-              <option value="Pertemuan 14">Pertemuan 14</option>
+              @foreach($pertemuanss as $pertemuan)
+              <option value="{{ $pertemuan->id }}"> {{ $pertemuan->name }}</option>
+               @endforeach
               </select>
               </div>
               </div>
@@ -340,7 +335,13 @@
             </select>
             </div>
             </div>
-            <div class="form-group row"><label class="col-lg-3 form-control-label">File</label>
+            <div class="form-group row"><label class="col-lg-3 form-control-label">Dokumen</label>
+              <div class="col-lg-9">
+                <input type="file" name="docs" ><br/>
+                File sebelumnya: <span id="current_filez"></span>
+              </div>
+            </div>
+            <div class="form-group row"><label class="col-lg-3 form-control-label">Video</label>
               <div class="col-lg-9">
                 <input type="file" name="files" ><br/>
                 File sebelumnya: <span id="current_file"></span>
@@ -370,6 +371,8 @@
             </div>
          
           <input type="hidden" name="file" class="form-control"> 
+          <input type="hidden" name="doc" class="form-control"> 
+
           </div>
         </div>
       </div>
@@ -448,12 +451,14 @@
       url:"{{url('pertemuan')}}/"+id+"/edit",
       success:function(res){
         $("#form-edit [name='id']").val(id);
-        $("#form-edit [name='name']").val(res.data.name);
+        $("#form-edit [name='meetingname_id']").val(res.data.meetingname_id);
         $("#form-edit [name='class_id']").val(res.data.class_id);
         $("#form-edit [name='assignment']").val(res.data.assignment);
         $("#form-edit [name='desc']").val(res.data.desc);
         $("#form-edit [name='description']").val(res.data.description);
         $("#form-edit [name='deadline']").val(res.data.deadline);
+        $("#form-edit [name='doc']").val(res.data.doc);
+        $("#current_filez").html(res.data.doc);
         $("#form-edit [name='file']").val(res.data.file);
         $("#current_file").html(res.data.file);
         $('#form-edit').attr('action',"./pertemuan/"+id);

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use  App\Models\kelas;
+use  App\Models\meetingname;
 use Image;
 use File;
+use App\Models\meeting;
 
 class kelasController extends Controller
 {
@@ -37,6 +39,19 @@ class kelasController extends Controller
 
             $simpan->save();
 
+            $pertemuans=meeting::all();
+            $idx = "$simpan->name - PERTEMUAN 01";
+            foreach($pertemuans as $pertemuan) {
+           
+                $data = new meetingname;
+                $data->name = $idx++;
+                $data->pertemuan_id = $pertemuan->id;
+                $data->class_id = $simpan->id;
+                $data->status = 0;
+
+                $data->save();
+            }
+
 		return redirect()->route('kelas.index')->with('alert-success', 'Berhasil Menambahkan Data!');
     }
     
@@ -55,23 +70,8 @@ class kelasController extends Controller
     public function update(Request $request, $id)
     {
         $data = kelas::findOrFail($id);
-        $input = $request->all();
-        
+        $data->name = $request->name;
 
-        if ($request->hasFile('image')){
-            $image_path = public_path("/images".$data->images);
-            if (File::exists($image_path)) {
-                File::delete($image_path);
-            }
-            $bannerImage = $request->file('image');
-            $imgName = $bannerImage->getClientOriginalName();
-            $destinationPath = public_path('/images');
-            $bannerImage->move($destinationPath, $imgName);
-          } else {
-            $imgName = $data->images;
-          }
-          $data->update($input);
-          $data->images = $imgName;
           $data->save();
         return redirect()->route('kelas.index')->with('alert-success', 'Berhasil Update Data!');
     }

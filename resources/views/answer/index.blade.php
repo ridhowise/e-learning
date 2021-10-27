@@ -53,124 +53,13 @@
       <h1><a href="#">{{$data->name}} </a></h1>
     </div>
     <div class="blog-summary">
-      <p>Waktu pertemuan: {{$data->created_at->format('Y-m-d')}}</p>
-      <p>Deskripsi : {{$data->description}}</p>
     </div>
   <div class="blog-body">
-
-       @if ($mime == "mp4" || $mime == "mkv" || $mime == "avi" || $mime == "mov" || $mime == "flv")
-      <video class="video-body" controls poster="https://internet-flash.net/wp-content/uploads/2018/03/5bbc49ebe02ba5bd1dcfa428e8cf610f.gif" id="bgvid">
-        <source src="{{URL::asset("/data_file/$data->file")}}" type="video/mp4">
-      </video>
-<hr>
-
-@else
-@endif
-</div>
-    <div class="blog-tags">
-      <ul>
-
-        <li><a href="{{ url('data_file') }}/{{ $data->file }}"
-              download="{{ $data->file }}">
-             
-               <i class="glyphicon glyphicon-download">
-                Download Video
-                </i>
-              
-              </a></li>
-
-        <li><a href="{{ url('data_file') }}/{{ $data->doc }}"
-              download="{{ $data->doc }}">
-             
-               <i class="glyphicon glyphicon-download">
-                Download File
-                </i>
-             
-              </a></li>
-              
-      </ul>
-    </div>
-  </div>
-  
-  <div class="blog-footer">
-    <ul>
-      
-    </ul>
-  </div>
-
-</div>
-@if (Auth::User()->level_id=='1')
-@if($data->assignment === null)
-@else
-<div class="blog-container">
-  
-  <div class="blog-header">
-      <div class="blog-author">
-        <h3>E-Learning</h3>
+    <div class="centerx">
+      <a style="color:white"  class="btn btn-lg btn-info" href="{{ url('data_file') }}/{{ $data->file }}"
+        download="{{ $data->file }}" >DOWNLOAD SOAL UJIAN</a>
       </div>
-  </div>
-
-  <div class="blog-body">
-    <div class="blog-title">
-      <h1><a href="#">Kehadiran</a></h1>
-    </div>
-    <div class="blog-summary">
-     
-      <div class="table-responsive">
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-  
-          <thead style="">
-            <tr>
-              <th>Nama</th>
-              <th>Kelas</th>
-              <th>Status</th>
-  
-            </tr>
-          </thead>
-          
-          <tbody>
-           
-         @foreach($kehadiran as $key => $items)
-                <td>{{ $items->user->name }} </td>
-                <td>{{$items->user->class->name}}</td>
-                @if($items->status == 0)
-                <td>
-                  
-                  <button type="button" class="btn btn-danger">
-                   <i class="glyphicon glyphicon-download">
-                    Tidak Hadir
-                    </i>
-                  </button>
-             
-                  </td>
-
-                @else
-                <td>
-                  
-                  <button type="button" class="btn btn-success">
-                   <i class="glyphicon glyphicon-download">
-                    Hadir
-                    </i>
-                  </button>
-             
-                  </td>
-              
-               
-                  @endif
-
-               
-
-               
-              </tr>
-              
-              @endforeach
-          </tbody>
-      </table>
-    </div>
-    </div>
-  <div class="blog-body">
-    
-       
+      
 </div>
     <div class="blog-tags">
       <ul>
@@ -187,6 +76,8 @@
   </div>
 
 </div>
+@if (Auth::User()->level_id=='1')
+
 <div class="blog-container">
   
   <div class="blog-header">
@@ -197,7 +88,7 @@
 
   <div class="blog-body">
     <div class="blog-title">
-      <h1><a href="#">{{$data->assignment}}</a></h1>
+      <h1><a href="#">{{$data->Name}}</a></h1>
     </div>
     <div class="blog-summary">
       <p>{{$data->desc}}</p>
@@ -211,13 +102,14 @@
               <th>Kelas</th>
               <th>Status</th>
               <th>File</th>
-  
+              <th>Nilai</th>
+
             </tr>
           </thead>
           
           <tbody>
            
-         @foreach($tugas as $key => $items)
+         @foreach($answer as $key => $items)
                 <td>{{ $items->user->name }} </td>
                 <td>{{$items->user->class->name}}</td>
                 @if($items->status == 0)
@@ -225,33 +117,23 @@
                   
                   <button type="button" class="btn btn-primary">
                    <i class="glyphicon glyphicon-download">
-                    Belum Input
+                    Belum Ujian
                     </i>
                   </button>
              
                   </td>
 
-                @elseif($items->status == 1)
+                @else
                 <td>
                   
                   <button type="button" class="btn btn-success">
                    <i class="glyphicon glyphicon-download">
-                    Tepat Waktu
+                    Sudah Ujian
                     </i>
                   </button>
              
                   </td>
               
-                @else
-                <td>
-                  
-                  <button type="button" class="btn btn-danger">
-                   <i class="glyphicon glyphicon-download">
-                    Terlambat
-                    </i>
-                  </button>
-             
-                  </td>
                   @endif
 
                 @if($items->file == null)
@@ -268,8 +150,23 @@
                 </a>
                 </td>
                 @endif
+                @if($items->nilai == null and $items->status == 0)
+                <td >-</td>
+                @elseif($items->nilai == null and $items->status == 1)
+                <td>
+                  <button type="button" class="btn btn-danger">
+                    <i class="glyphicon glyphicon-download">
+                     <a style="color:white" href="/score/{{$items->id}}" > Beri Nilai</a>
+                     </i>
+                   </button>
+              
 
-               
+                        
+
+                </td>
+                @else
+                <td>{{$items->nilai}}</td>
+                @endif
               </tr>
               
               @endforeach
@@ -296,106 +193,11 @@
   </div>
 
 </div>
-@endif
+
 @else
-@if($data->assignment === null)
-@else
-<div class="blog-container">
-  
-  <div class="blog-header">
-      <div class="blog-author">
-        <h3>E-Learning</h3>
-      </div>
-  </div>
 
-  <div class="blog-body">
-    <div class="blog-title">
-      <h1><a href="#">Kehadiran</a></h1>
-    </div>
-    <div class="blog-summary">
-      <p style="color:red">Waktu terakhir absen : {{$data->tommorow}}</p>
-      <div class="table-responsive">
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-  
-          <thead style="">
-            <tr>
-              <th>Nama</th>
-              <th>Kelas</th>
-              <th>Status</th>
-  
-            </tr>
-          </thead>
-          
-          <tbody>
-            <?php
-            date_default_timezone_set("Asia/Makassar");
-            $ffdate = date("Y-m-d h:i:sa");
-            $ttdate = $data->tommorow;
-           
-            $datetime1 = new DateTime($ffdate);
-            $datetime2 = new DateTime($ttdate);
-            $absen = $datetime2->getTimestamp() - $datetime1->getTimestamp();
-            
-          
-            ?>
-                <td>{{ $kehadiranm->user->name }} </td>
-                <td>{{$kehadiranm->user->class->name}}</td>
-                @if($kehadiranm->status == 0 and $absen > 0)
-                <td>
-                  
-                  <div class="btn-group">
-                    {{-- <a href="editrequesta/{{ $row->id }}" type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a> --}}
-                    <a style="color:white!important" href="kehadiran/{{ $kehadiranm->id }}" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Isi Kehadiran</a>
-                  </div>
-             
-                  </td>
-                @elseif($kehadiranm->status == 0 and $absen < 0)
-                <td>
-                  
-                  <button type="button" class="btn btn-danger">
-                   <i class="glyphicon glyphicon-download">
-                    Tidak Hadir
-                    </i>
-                  </button>
-             
-                  </td>
-              
-                @else
-                <td>
-                  
-                  <button type="button" class="btn btn-success">
-                   <i class="glyphicon glyphicon-download">
-                    Hadir
-                    </i>
-                  </button>
-             
-                  </td>
-              
-               
-                  @endif
 
-               
-
-               
-              </tr>
-              
-          </tbody>
-      </table>
-    </div>
-    </div>
-    
-       
-</div>
-    <div class="blog-tags">
-      <ul>
-
-        <li></li>
-      </ul>
-    </div>
-  </div>
-  
  
-  
 <div class="blog-container">
   
   <div class="blog-header">
@@ -406,53 +208,48 @@
 
   <div class="blog-body">
     <div class="blog-title">
-      <h1><a href="#">{{$data->assignment}}</a></h1>
+      <h1><a href="#">{{$data->name}}</a></h1>
     </div>
     <div class="blog-summary">
-      <p>{{$data->desc}}</p>
-      <p style="color:red">Waktu terakhir upload tugas : {{$data->deadline}}</p>
 
-      <?php
-      date_default_timezone_set("Asia/Makassar");
-      $fdate = date("Y-m-d h:i:sa");
-      $tdate = $data->deadline;
-     
-      $datetime1 = new DateTime($fdate);
-      $datetime2 = new DateTime($tdate);
-      $diff = $datetime2->getTimestamp() - $datetime1->getTimestamp();
-      
+      @if($selesai->status == 0 )
+      <div class="centerx">
+      <a style="color:white" href="" class="btn btn-lg btn-info"  data-toggle="modal" data-target="#add">UPLOAD JAWABAN</a>
+      </div>
+      @else
+      <div class="centerx">
+        <a style="color:white"  class="btn btn-lg btn-info" >UJIAN SELESAI</a>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTablee" width="100%" cellspacing="0">
     
-      ?>
-
-      @if($selesai->status == 0 and $diff < 0)
-      <div class="centerx">
-        <a style="color:white" href="" class="btn btn-lg btn-info"  data-toggle="modal" data-target="#addlate">UPLOAD TUGAS</a>
-        </div>
-      <div id="clockdiv" style="width:100%;height:230px;background-color:white;padding:70px;font-size:70px">
-
-        <div><span id="day"></span><div class="smalltext">Hari</div></div>
-        <div><span id="hour"></span><div class="smalltext">Jam</div></div>
-        <div><span id="minute"></span><div class="smalltext">Menit</div></div>
-        <div><span id="second"></span><div class="smalltext">Detik</div></div>
-      </div>
-      @elseif($selesai->status == 0 and $diff > 0)
-      <div class="centerx">
-      <a style="color:white" href="" class="btn btn-lg btn-info"  data-toggle="modal" data-target="#add">UPLOAD TUGAS</a>
-      </div>
-
-      <div id="clockdiv" style="width:100%;height:230px;background-color:white;padding:70px;font-size:70px">
-
-        <div><span id="day"></span><div class="smalltext">Hari</div></div>
-        <div><span id="hour"></span><div class="smalltext">Jam</div></div>
-        <div><span id="minute"></span><div class="smalltext">Menit</div></div>
-        <div><span id="second"></span><div class="smalltext">Detik</div></div>
-      </div>
-      @elseif($selesai->status == 1 or  $selesai->status == 2)
-      <div class="centerx">
-        <a style="color:white"  class="btn btn-lg btn-info" >TUGAS SELESAI</a>
-        </div>
-     
-        @endif
+            <thead style="">
+              <tr>
+                <th>Nama</th>
+                <th>Kelas</th>
+                <th>Nilai</th>
+  
+              </tr>
+            </thead>
+            
+            <tbody>
+             
+           @foreach($answer as $key => $items)
+                  <td>{{ $items->user->name }} </td>
+                  <td>{{$items->user->class->name}}</td>
+            
+                  @if($items->nilai == null)
+                  <td >Belum dinilai</td>
+                  @else
+                  <td>{{$items->nilai}}</td>
+                  @endif
+                </tr>
+                
+                @endforeach
+            </tbody>
+        </table>
+      @endif
      
       
       
@@ -478,7 +275,7 @@
 
 </div>
 
-@endif
+
 @endif
 
 
@@ -568,7 +365,7 @@
   </div>
 </div>
 
-<div  class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+\<div  class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document" >
     <div class="modal-content" style="border:1px solid black;">
       <div class="modal-header">
@@ -586,49 +383,75 @@
        
 
 
-          <div class="form-group row"><label class="col-lg-2 form-control-label">Date</label>
-            <div class="col-lg-10">
-              <input type="date" name="tanggal" placeholder="tanggal" class="form-control" required> 
-            </div>
-          </div>
-          <div class="form-group row"><label class="col-lg-2 form-control-label">Keterangan</label>
-            <div class="col-lg-10">
-              <input type="text" name="name" placeholder="Keterangan" class="form-control" required> 
-            </div>
-          </div>
-          <div class="form-group row"><label class="col-lg-2 form-control-label">Debit</label>
-            <div class="col-lg-10">
-              <input type="text" name="debit" placeholder="Debit" class="form-control" required> 
-            </div>
-          </div>
-          <div class="form-group row"><label class="col-lg-2 form-control-label">Credit</label>
-            <div class="col-lg-10">
-              <input type="text" name="credit" placeholder="Credit" class="form-control" required> 
-            </div>
-          </div>
-          <div class="form-group row"><label class="col-lg-2 form-control-label">Balance</label>
-            <div class="col-lg-10">
-              <input type="text" name="balance" placeholder="Balance" class="form-control" required> 
-            </div>
-          </div>
-                    <div class="form-group row"><label class="col-lg-2 form-control-label">Sumber</label>
+          
+         
+              <div class="form-group row"><label class="col-lg-3 form-control-label">Deskripsi</label>
+                <div class="col-lg-9">
+                  <input type="text" name="description" placeholder="Deskripsi" class="form-control"> 
+                </div>
+              </div>
+              <div class="form-group row"><label class="col-lg-3 form-control-label">Kelas</label>
 
-          <div class="col-lg-10">
-            <select name="source" id="source" class="form-control select" required>
-            <option value="0">-- PILIH --</option>
-            <option value="1">Pribadi</option>
-            <option value="2">Non-Pribadi</option>
+                
+          <div class="col-lg-9">
+            <select name="class_id" id="class_id" class="form-control select" required>
+              <option>-- Pilih Kelas --</option>
+
+              @foreach($kelas as $class)
+                <option value="{{ $class->id }}"> {{ $class->name }}</option>
+              @endforeach
+            </select>
+
+            @if ($errors->has('class_id'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('class_id') }}</strong>
+                </span>
+            @endif
             </select>
             </div>
             </div>
-
-          <div class="form-group row"><label class="col-lg-2 form-control-label">Pictures</label>
-            <div class="col-lg-8">
-              <input type="file" name="image"><br/>
-              Current Images: <span id="current_pic"></span>
+            <div class="form-group row"><label class="col-lg-3 form-control-label">Dokumen</label>
+              <div class="col-lg-9">
+                <input type="file" name="docs" ><br/>
+                File sebelumnya: <span id="current_filez"></span>
+              </div>
             </div>
+            <div class="form-group row"><label class="col-lg-3 form-control-label">Video</label>
+              <div class="col-lg-9">
+                <input type="file" name="files" ><br/>
+                File sebelumnya: <span id="current_file"></span>
+              </div>
+            </div>
+
+
+<div class="row">
+  <div class="col">
+    <div >
+      <div class="card card-body">
+
+            <div class="form-group row"><label class="col-lg-3 form-control-label">Tugas</label>
+              <div class="col-lg-9">
+                <input type="text" name="assignment" placeholder="Tugas" class="form-control"> 
+              </div>
+            </div>
+            <div class="form-group row"><label class="col-lg-3 form-control-label">Deskripsi</label>
+              <div class="col-lg-9">
+                <input type="text" name="desc" placeholder="Deskripsi" class="form-control"> 
+              </div>
+            </div>
+            <div class="form-group row"><label class="col-lg-3 form-control-label">Deadline</label>
+              <div class="col-lg-9">
+                <input type="datetime-local" name="deadline" placeholder="tanggal" class="form-control"> 
+              </div>
+            </div>
+         
+          <input type="hidden" name="file" class="form-control"> 
+          <input type="hidden" name="doc" class="form-control"> 
+
           </div>
-          <input type="hidden" name="pic" placeholder="Prices" class="form-control" required> 
+        </div>
+      </div>
+      </div>
         </div>
         <div class="modal-footer">
           <button type="button" style="border:1px solid black;" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -700,17 +523,20 @@
   } );
   function showEdit(id){
     $.ajax({
-      url:"{{url('pertemuan')}}/"+id+"/edit",
+      url:"{{url('answer')}}/"+id+"/edit",
       success:function(res){
         $("#form-edit [name='id']").val(id);
-        $("#form-edit [name='name']").val(res.data.name);
-        $("#form-edit [name='tanggal']").val(res.data.tanggal);
-        $("#form-edit [name='debit']").val(res.data.debit);
-        $("#form-edit [name='credit']").val(res.data.credit);
-        $("#form-edit [name='balance']").val(res.data.balance);
-        $("#form-edit [name='pic']").val(res.data.pic);
-        $("#current_pic").html(res.data.pic);
-        $('#form-edit').attr('action',"./pertemuan/"+id);
+        $("#form-edit [name='meetingname_id']").val(res.data.meetingname_id);
+        $("#form-edit [name='class_id']").val(res.data.class_id);
+        $("#form-edit [name='assignment']").val(res.data.assignment);
+        $("#form-edit [name='desc']").val(res.data.desc);
+        $("#form-edit [name='description']").val(res.data.description);
+        $("#form-edit [name='deadline']").val(res.data.deadline);
+        $("#form-edit [name='doc']").val(res.data.doc);
+        $("#current_filez").html(res.data.doc);
+        $("#form-edit [name='file']").val(res.data.file);
+        $("#current_file").html(res.data.file);
+        $('#form-edit').attr('action',"./answer/"+id);
         $("#edit").modal('show');
       }
     })

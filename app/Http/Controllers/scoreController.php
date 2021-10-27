@@ -8,14 +8,19 @@ use App\Models\pertemuan;
 use App\Models\kelas;
 use App\Models\tugas;
 use App\Models\kehadiran;
+use App\Models\nilai;
+use App\Models\User;
+use App\Models\exam;
+use App\Models\answer;
+use App\Models\soal;
+use App\Models\jawaban;
 use Image;
 use File;
 use Auth;
-use App\Models\User;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportExcel;
 
-class detailController extends Controller
+class scoreController extends Controller
 {
 	
 	
@@ -32,28 +37,11 @@ class detailController extends Controller
 	 
     public function index($id)
     {
-        $data=pertemuan::findOrFail($id);
-        $kelas=kelas::all();
-        $split = explode(".", $data->file);
-        $ext = $split[count($split)-1];
-        $mime = $ext;
-        $tugas = tugas::where('meeting_id', $id)->get();
-        $kehadiran = kehadiran::where('meeting_id', $id)->get();
-        $mahasiswa = Auth::User()->id;
-
-        $kehadiranm = kehadiran::select('*')
-        ->where('meeting_id', '=', $id)
-        ->where('user_id', '=', $mahasiswa)
-        ->first();
-
-        $selesai = tugas::select('*')
-                ->where('meeting_id', '=', $id)
-                ->where('user_id', '=', $mahasiswa)
-                ->first();
-
-
-        // dd($tugas);
-        return view('detail.index',compact('data','kelas','mime','tugas','selesai','kehadiran','kehadiranm'));
+        $exam=answer::findOrFail($id);
+        // $tes=$data->soal;
+        // dd($tes);
+        
+        return view('score.index',compact('exam'));
     }
 
     /**
@@ -66,7 +54,7 @@ class detailController extends Controller
         $data=pertemuan::findOrFail($id);
         $tugas = tugas::where('meeting_id', $id)->get();
         $kelas=kelas::all();
-		return view('detail.create',compact('data','kelas'));
+		return view('nilai.create',compact('data','kelas'));
 		
     }
 
@@ -76,46 +64,20 @@ class detailController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(Request $request,$id)
     {
 
-		$this->validate($request, [
-			'file' => 'required||mimes:docx,doc,pptx,ppt,pdf|max:100048',
+        $exam=answer::findOrFail($id);
+        $exam->nilai =$request->nilai;
+        $exam->save();
 
-		]);
- 
-		// menyimpan data file yang diupload ke variabel $file
-		$file = $request->file('file');
- 
-		$nama_file = time()."_".$file->getClientOriginalName();
- 
-      	        // isi dengan nama folder tempat kemana file diupload
-		$tujuan_upload = 'data_file';
-		$file->move($tujuan_upload,$nama_file);
-        
-        $meeting=pertemuan::findOrFail($id);
-
-        $mahasiswa = Auth::User()->id;
-        $data = tugas::select('*')
-        ->where('meeting_id', '=', $id)
-        ->where('user_id', '=', $mahasiswa)
-        ->first();
-       
-        $data->file = $nama_file;
-        $data->status =$request->status;
-        
-	
-        $data -> save();
-
-        
-
-            
-        
+      
 
 
         //request()->pic->move(public_path('assets/images'), $imageName);
         //return redirect('pertemuan');
 		
+       
         return back();
            
     }
