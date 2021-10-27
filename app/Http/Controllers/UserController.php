@@ -81,7 +81,6 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $data = User::findOrFail($id);
-        $input = $request->all();
         
 
         if ($request->hasFile('image')){
@@ -96,7 +95,9 @@ class UserController extends Controller
           } else {
             $imgName = $data->images;
           }
-          $data->update($input);
+          $data->name = $request->name;
+          $data->email = $request->email;
+          $data->class_id = $request->class_id;
           $data->images = $imgName;
           $data->save();
         return redirect()->route('user.index')->with('alert-success', 'Berhasil Update Data!');
