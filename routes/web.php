@@ -54,6 +54,7 @@ Route::resource('level', 'LevelController')->middleware('auth');
 Route::resource('user', 'UserController')->middleware('auth');
 Route::resource('kelas', 'kelasController')->middleware('auth');
 Route::get('detail/kehadiran/{id}', 'detailController@kehadiran')->name('kehadiran')->middleware('auth');
+Route::get('/products/create-pdf/{id}', 'rekapController@exportPDF')->name('exportPDF')->middleware('auth');
 
 Route::resource('quiz', 'quizController')->middleware('auth');
 Route::get('/nilai/{id}', 'nilaiController@index')->name('nilai')->middleware('auth');

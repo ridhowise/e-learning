@@ -11,6 +11,7 @@ use App\Models\kehadiran;
 use Image;
 use File;
 use Auth;
+use PDF;
 use App\Models\User;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportExcel;
@@ -208,4 +209,23 @@ class rekapController extends Controller
 	{
 		return Excel::download(new ExportExcel, 'data.xlsx');
 	}
+
+    public function exportPDF($id) {
+
+        $kehadiran = kehadiran::where('user_id', $id)->get();
+        $user = kehadiran::where('user_id', $id)->first();
+
+        $hadir=kehadiran::select('*')
+        ->where('user_id', '=', $id)
+        ->where('status', '=', 1)
+        ->count();
+
+        $totalhadir=kehadiran::where('user_id', $id)->count();
+
+        $nilai = $hadir/$totalhadir*100;
+
+        $pdf_doc = PDF::loadView('export_pdf', array('kehadiran' => $kehadiran,'hadir'=>$hadir,'totalhadir'=>$totalhadir,'nilai' => $nilai,'user' => $user));
+
+        return $pdf_doc->download('rekap.pdf');
+    }    
 }

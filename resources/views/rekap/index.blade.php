@@ -48,6 +48,9 @@
       <h1><a href="#">Kehadiran</a></h1>
     </div>
     <div class="blog-summary">
+      <div class="d-flex flex-row-reverse bd-highlight mb-3">
+        <a class="btn btn-success" href="/products/create-pdf/{{Auth::User()->id}}">Download PDF</a>
+    </div>
 
      Nama : {{$user->user->name}}
      <br>
