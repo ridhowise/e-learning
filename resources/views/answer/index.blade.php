@@ -208,7 +208,6 @@
 
   <div class="blog-body">
     <div class="blog-title">
-      <h1><a href="#">{{$data->name}}</a></h1>
     </div>
     <div class="blog-summary">
 
