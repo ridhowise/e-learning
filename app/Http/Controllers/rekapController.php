@@ -224,8 +224,10 @@ class rekapController extends Controller
 
         $nilai = $hadir/$totalhadir*100;
 
-        $pdf_doc = PDF::loadView('export_pdf', array('kehadiran' => $kehadiran,'hadir'=>$hadir,'totalhadir'=>$totalhadir,'nilai' => $nilai,'user' => $user));
+        
+        $pdf_doc = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('export_pdf', array('kehadiran' => $kehadiran,'hadir'=>$hadir,'totalhadir'=>$totalhadir,'nilai' => $nilai,'user' => $user));
 
         return $pdf_doc->download('rekap.pdf');
+        // return PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('reports.invoiceSell')->stream();
     }    
 }
