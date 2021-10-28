@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel 8 HTML to PDF Example</title>
+    <title>Rekap Pertemuan</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
 </head>
 
@@ -19,7 +19,7 @@
   font-weight: normal;
   text-align: center;
   margin: 0 0 20px 0;
-  background: url(dimension.png);
+  background: url(https://i.ibb.co/gyyKCT6/dimension.png);
 }
 
 #logo {
@@ -34,7 +34,7 @@
 
 <body class="antialiased container mt-5">
   <div id="logo">
-    <img src="logo.png">
+    <img src="https://i.ibb.co/kxFwpvN/logo.png">
   </div>
   <h1>REKAP PERTEMUAN</h1>
 
