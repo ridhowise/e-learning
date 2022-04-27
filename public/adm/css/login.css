@@ -80,7 +80,7 @@
   
   body {
     background-color: #ffb7ae;
-    background-image: url("https://i.ibb.co/thKK7bb/background.jpg");
+    background-image: url("https://i.ibb.co/8rCPR9P/background-1.jpg");
     background-repeat: no-repeat;
   background-position: 50% 0;
   background-size: cover;
@@ -161,11 +161,11 @@
     --loginInputBackgroundColor: rgba(244, 241, 241, 0.886);
     --loginInputHoverBackgroundColor: #fff;
   
-    --loginLabelBackgroundColor: #cf000f;
+    --loginLabelBackgroundColor: #fb0011;
   
-    --loginSubmitBackgroundColor: #cf000f;
+    --loginSubmitBackgroundColor: #fb0011;
     --loginSubmitColor: #eee;
-    --loginSubmitHoverBackgroundColor: #af020e;
+    --loginSubmitHoverBackgroundColor: #b8000c;
   }
   
   .login {

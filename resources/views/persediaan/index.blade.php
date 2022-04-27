@@ -7,20 +7,18 @@
     <div class="container-fluid">
 
         <!-- Page Heading -->
-        {{-- @if (Auth::User()->level_id == '1') --}}
+       
 
             <h1 class="h3 mb-2 text-gray-800">Persediaan <a href="{{ url('persediaan/create') }}" class="btn btn-sm btn-primary"
                     data-toggle="modal" data-target="#adds">Tambah List Barang</a>
             </h1>
-        {{-- @else
-        @endif --}}
+        
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Persediaan</h6>
             </div>
             <div class="card-body">
-                {{-- @if (Auth::User()->level_id == '1') --}}
 
                     @if (count($errors) > 0)
                         <div class="alert alert-danger">
@@ -83,55 +81,7 @@
                             </tbody>
                         </table>
                     </div>
-                {{-- @else
-                    @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            @foreach ($errors->all() as $error)
-                                {{ $error }} <br />
-                            @endforeach
-                        </div>
-                    @endif
-
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTablee" width="100%" cellspacing="0">
-
-                            <thead style="">
-                                <tr>
-                                    <th>Nama</th>
-                                    <th>Kelas</th>
-                                    <th>Tipe Ujian</th>
-                                    <th>Action</th>
-
-                                </tr>
-                            </thead>
-
-                            <tbody>
-
-                                @foreach ($students as $key => $items)
-                                    <td>{{ $items->name }} </td>
-                                    <td>{{ $items->class->name }}</td>
-                                    @if ($items->types == 1)
-                                        <td>Quiz</td>
-                                    @elseif($items->types == 2)
-                                        <td>UTS</td>
-                                    @else
-                                        <td>UAS</td>
-                                    @endif
-                                    <td>
-                                        <form action="{{ route('quiz.destroy', $items->id) }}" method="post">
-                                            {{ csrf_field() }}
-                                            {{ method_field('DELETE') }}
-                                            <a class="btn btn-sm btn-primary" type="submit"
-                                                href="soal/{{ $items->id }}"><i class="fas fa-eye"></i> Detail soal</a>
-
-                                    </td>
-                                    </tr>
-
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                @endif --}}
+               
             </div>
         </div>
         </section>

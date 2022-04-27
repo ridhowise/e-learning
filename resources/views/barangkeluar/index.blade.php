@@ -87,12 +87,15 @@
     </div>
   <div class="blog-body">
     <br>
-    <div class="centerx">
+    @if($data->status == 0)
+     <div class="centerx">
       <a style="color:white" href="" class="btn btn-lg btn-success"  data-toggle="modal" data-target="#add">APPROVE</a>
-      <a style="color:white" href="" class="btn btn-lg btn-danger"  data-toggle="modal" data-target="#adds">REJECT</a>
+      <a style="color:white" href="" class="btn btn-lg btn-danger"  data-toggle="modal" data-target="#addlate">REJECT</a>
 
       </div>
-      
+    @else
+ 
+    @endif 
  
     
        
@@ -130,7 +133,7 @@
   <div class="modal-dialog" role="document" >
     <div class="modal-content" style="border:1px solid black;">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Upload Tugas Terlambat</h5>
+        <h5 class="modal-title" id="exampleModalLabel">PENOLAKAN</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -139,44 +142,34 @@
         {{ csrf_field() }}
         <div class="modal-body">
            
-         
-          <input type="hidden" name="status" value="2" class="form-control"> 
-
-
-          <div class="form-group row"><label class="col-lg-3 form-control-label">File Pembelajaran </label>
-            <div class="col-lg-9">
-              <input type="file" name="file">
-            </div>
-          </div>
-          <p>
-  
- 
-        </div>
-       
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" onclick="return confirm('Apakah data sudah benar?');" class="btn btn-default" style="border:1px solid black;">Save changes</button>
-
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<div  class="modal fade" id="adds" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document" >
-    <div class="modal-content" style="border:1px solid black;">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Approve</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form id="upload-image-form" class="form-horizontal" action=""  method="post" enctype="multipart/form-data">
-        {{ csrf_field() }}
-        <div class="modal-body">
-           
+          <div class="table-responsive">
+            <table class="display table table-bordered" id="dataTable" width="100%" cellspacing="0">
       
+              <thead style="">
+                <tr>
+                  <th>Nama</th>
+                  <th>Jumlah</th>
+                  <th>Satuan</th>
+      
+                </tr>
+              </thead>
+              
+              <tbody>
+               
+             @foreach($barangkeluar as $key => $items)
+                    <td>{{ $items->barang->nama }} </td>
+                    <td>{{ $items->keluar }} </td>
+                    <td>{{ $items->barang->satuan }} </td>
+                   
+    
+    
+                   
+                  </tr>
+                  
+                  @endforeach
+              </tbody>
+          </table>
+        </div>
           <input type="hidden" name="status" value="2" class="form-control"> 
           @foreach($barangkeluar as $key => $items)           
           <tr>
@@ -184,17 +177,21 @@
           <td> <input type="hidden" readonly name="jumlah[]" placeholder="jumlah" class="form-control" value="0"> </td>
           </tr>
           @endforeach
-
+  
+ 
+        </div>
        
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" onclick="return confirm('Apakah data sudah benar?');" class="btn btn-default" style="border:1px solid black;">Save changes</button>
+          <button type="submit"  class="btn btn-default" style="border:1px solid black;">Save changes</button>
 
         </div>
       </form>
     </div>
   </div>
 </div>
+
+
 
 <div  class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document" >
@@ -211,9 +208,7 @@
         <input type="hidden" name="id" >
         <div class="modal-body">
           
-       
-
-
+      
           <div class="form-group row"><label class="col-lg-2 form-control-label">Date</label>
             <div class="col-lg-10">
               <input type="date" name="tanggal" placeholder="tanggal" class="form-control" required> 
@@ -338,6 +333,38 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
 </div>
 </div>
 
+<div  class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" >
+    <div class="modal-content" style="border:1px solid black;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Approve</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="upload-image-form" class="form-horizontal" action=""  method="post" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        <div class="modal-body">
+           
+      
+          <input type="hidden" name="status" value="2" class="form-control"> 
+          @foreach($barangkeluar as $key => $items)           
+          <tr>
+          <td> <input type="hidden" readonly name="id[]" placeholder="jumlah" class="form-control" value="{{$items->barang_id}}"> </td>
+          <td> <input type="hidden" readonly name="jumlah[]" placeholder="jumlah" class="form-control" value="0"> </td>
+          </tr>
+          @endforeach
+
+       
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" onclick="return confirm('Apakah data sudah benar?');" class="btn btn-default" style="border:1px solid black;">Save changes</button>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
   <div  class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document" >
       <div class="modal-content" style="border:1px solid black;">

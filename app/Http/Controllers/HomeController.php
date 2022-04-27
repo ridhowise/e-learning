@@ -33,21 +33,9 @@ class HomeController extends Controller
     {
         $student=Auth::User()->id;
         $studentclass=Auth::User()->class_id;
-        $pertemuana=pertemuan::all()->count();
-        $mahasiswa=user::where('level_id', 2)->count();
-        $pertemuan=pertemuan::where('class_id', $studentclass)->count();
-        $pertemuans=kehadiran::select('*')
-        ->where('user_id', '=', $student)
-        ->where('status', '=', 1)
-        ->count();
-        $tugas=tugas::select('*')
-        ->where('user_id', '=', $student)
-        ->where('status', '=', 0)
-        ->count();
-        $ujian=quiz::where('class_id', $studentclass)->count();
-        $ujiantotal=quiz::all()->count();
+       
         if (Auth::User()->role<>'0') {
-             return view('adm.index', compact('pertemuan','tugas','pertemuans','pertemuana','mahasiswa','ujian','ujiantotal'));
+             return view('adm.index');
         }else {
             return view('auth.login');
         }

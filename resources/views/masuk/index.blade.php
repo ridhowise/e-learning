@@ -7,13 +7,11 @@
     <div class="container-fluid">
 
         <!-- Page Heading -->
-        @if (Auth::User()->level_id == '1')
 
             <h1 class="h3 mb-2 text-gray-800">Barang Masuk <a href="{{ url('masuk/create') }}" class="btn btn-sm btn-primary"
                     data-toggle="modal" data-target="#adds">Masukkan Barang + </a>
             </h1>
-        @else
-        @endif
+       
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">

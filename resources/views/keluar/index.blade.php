@@ -7,13 +7,12 @@
     <div class="container-fluid">
 
         <!-- Page Heading -->
-        @if (Auth::User()->level_id == '1')
+       
 
             <h1 class="h3 mb-2 text-gray-800">Barang Keluar <a href="{{ url('keluar/create') }}" class="btn btn-sm btn-primary"
                     data-toggle="modal" data-target="#adds">Salurkan Barang - </a>
             </h1>
-        @else
-        @endif
+       
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -75,7 +74,7 @@
                                     href="#"> Ditolak</a></td>
                                 <td>
                                     @elseif($items->status == 2 and Auth::User()->level_id == '1' )
-                                        <td><a class="btn btn-sm btn-info" type="submit"
+                                        <td><a class="btn btn-sm btn-danger" type="submit"
                                     href="#"> Ditolak</a></td>
                                 <td>
                                         @endif

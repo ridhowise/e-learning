@@ -85,6 +85,7 @@ class masukController extends Controller
 
             $dataz = new barangmasuk;
             $dataz->barang_id = $barang_id;
+            $dataz->tanggal = $request->tanggal;
             $dataz->masuk_id = $data->id;
             $dataz->masuk = $jumlahs[$key];
             $dataz->save();

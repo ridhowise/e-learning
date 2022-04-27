@@ -30,24 +30,8 @@
                                         <form class="form-horizontal" action="{{ route('user.update', $data->id) }}" method="post" enctype="multipart/form-data">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="_method" value="PATCH">
-                                            <div class="form-group row"><label class="col-lg-2 form-control-label">Kelas</label>
 
-                                                <div class="col-lg-10">
-                                                <select name="class_id" id="class_id" class="form-control{{ $errors->has('class_id') ? ' is-invalid' : '' }}">
-                                                <option value="{{ $data->class->id }}"> {{ $data->class->name }}</option>
-                                                <option>---PILIH KELAS---</option>
-
-                                                    @foreach($class as $class)
-                                                      <option value="{{ $class->id }}"> {{ $class->name }}</option>
-                                                    @endforeach
-                                                  </select>
-
-                                                  @if ($errors->has('class_id'))
-                                                      <span class="invalid-feedback" role="alert">
-                                                          <strong>{{ $errors->first('class_id') }}</strong>
-                                                      </span>
-                                                  @endif
-                                                </div>
+                                                
                                             </div>
                                             <div class="form-group row"><label class="col-lg-2 form-control-label">Nama</label>
 

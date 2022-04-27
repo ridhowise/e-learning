@@ -19,7 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = User::where('level_id', 2 )->get();
+        $data = User::all();
 		// $data = User::all();
         return view('user.index', compact('data'));
     }

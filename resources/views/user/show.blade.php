@@ -72,9 +72,7 @@
                                                 <div class="h5 mt-4">
                                                   <i class="ni business_briefcase-24 mr-2"></i>{{$data->level->name}}
                                                 </div>
-                                                <div>
-                                                  <i class="ni education_hat mr-2"></i>{{$data->class->name}}
-                                                </div>
+                                               
                                                 <hr class="my-4">
                                                 {{-- <p>Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.</p>
                                                 <a href="https://www.creative-tim.com/product/argon-dashboard" target="_blank">Show more</a> --}}

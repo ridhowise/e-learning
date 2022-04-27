@@ -22,7 +22,7 @@
             <th>No</th>
             <th>Nama</th>
             <th>Username</th>
-            <th>Kelas</th>
+            <th>Role</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -36,8 +36,8 @@
                 <td>{{ $no++ }}</td>
                 <td>{{ $items->name }}</td>
                 <td>{{ $items->email }}</td>
-                <td>{{$items->class->name}}</td>
-                
+                <td>{{ $items->level->name }}</td>
+
                 <td>
 				
                 <form action="{{ route('user.destroy', $items->id) }}" method="post">
