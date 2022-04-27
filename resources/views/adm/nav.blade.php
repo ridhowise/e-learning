@@ -6,7 +6,7 @@
   <div class="sidebar-brand-icon rotate-n-15">
     <i class="fas fa-edit"></i>
   </div>
-  <div class="sidebar-brand-text mx-3">E-learning Support <sup></sup></div>
+  <div class="sidebar-brand-text mx-3">SATPOL PP KOTA BITUNG<sup></sup></div>
 </a>
 
 <!-- Divider -->
@@ -45,9 +45,9 @@
 
 
 <!-- Nav Item - Pages Collapse Menu -->
-<li class="nav-item active"><a class="nav-link" href="{{ url('pertemuan') }}"><i class="fas fa-fw fa-users"></i><span>Pertemuan</span></a></li>
-<li class="nav-item active"><a class="nav-link" href="{{ url('exam') }}"><i class="fas fa-fw fa-file"></i><span>Quiz/Ujian</span></a></li>
-<li class="nav-item active"><a class="nav-link" href="{{url('user')}}/{{Auth::User()->id}}"><i class="fas fa-fw fa fa-door-closed"></i><span>Profile</span></a></li>
+<li class="nav-item active"><a class="nav-link" href="{{ url('persediaan') }}"><i class="fas fa-fw fa-briefcase"></i><span>Persediaan Barang</span></a></li>
+<li class="nav-item active"><a class="nav-link" href="{{ url('masuk') }}"><i class="fas fa-fw fa-arrow-right"></i><span>Barang Masuk</span></a></li>
+<li class="nav-item active"><a class="nav-link" href="{{ url('keluar') }}"><i class="fas fa-fw fa-arrow-left"></i><span>Barang Keluar</span></a></li>
 
 <!-- Divider -->
 <hr class="sidebar-divider">
@@ -55,8 +55,11 @@
 <div class="sidebar-heading">
 Menu
 </div>
-<li class="nav-item active"><a class="nav-link" href="{{ url('pertemuan') }}"><i class="fas fa-fw fa-users"></i><span>Pertemuan</span></a></li>
-<li class="nav-item active"><a class="nav-link" href="{{ url('exam') }}"><i class="fas fa-fw fa-file"></i><span>Quiz/Ujian</span></a></li>
+<li class="nav-item active"><a class="nav-link" href="{{ url('persediaan') }}"><i class="fas fa-fw fa-briefcase"></i><span>Persediaan Barang</span></a></li>
+<li class="nav-item active"><a class="nav-link" href="{{ url('masuk') }}"><i class="fas fa-fw fa-arrow-right"></i><span>Barang Masuk</span></a></li>
+<li class="nav-item active"><a class="nav-link" href="{{ url('keluar') }}"><i class="fas fa-fw fa-arrow-left"></i><span>Barang Keluar</span></a></li>
+{{-- <li class="nav-item active"><a class="nav-link" href="{{ url('pertemuan') }}"><i class="fas fa-fw fa-users"></i><span>Pertemuan</span></a></li>
+<li class="nav-item active"><a class="nav-link" href="{{ url('exam') }}"><i class="fas fa-fw fa-file"></i><span>Quiz/Ujian</span></a></li> --}}
 
 <!-- Divider -->
 <hr class="sidebar-divider">

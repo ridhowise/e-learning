@@ -319,25 +319,25 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('levels')->insert([
             'id'=> '1',
-            'name' => 'Dosen',
+            'name' => 'Admin',
             'created_at' => Carbon::now(),
         ]);
         DB::table('levels')->insert([
         	'id'=> '2',
-            'name' => 'Mahasiswa',
+            'name' => 'Pengurus',
             'created_at' => Carbon::now(),
         ]);
         DB::table('levels')->insert([
             'id'=> '3',
-            'name' => 'Admin',
+            'name' => 'Super-Admin',
             'created_at' => Carbon::now(),
         ]);
         
         DB::table('users')->insert([
             'id'=> '1',
-            'name' => 'Dosen',
+            'name' => 'admin',
             'level_id'=> '1',
-            'email' => 'dosen',
+            'email' => 'admin',
             'password' => bcrypt('12345'),
             'images' => 'admin.png',
             'created_at' => Carbon::now(),
@@ -362,114 +362,14 @@ class DatabaseSeeder extends Seeder
         ]);
          DB::table('users')->insert([
             'id'=> '3',
-            'name' => 'Beny',
+            'name' => 'Ronny',
             'level_id'=> '2',
-            'class_id'=> '2',
-            'email' => 'beny',
+            'email' => 'ronny',
             'images' => 'beny.png',
             'password' => bcrypt('12345'),
             'created_at' => Carbon::now(),
         ]);
-        DB::table('users')->insert([
-            'id'=> '4',
-            'name' => 'Charlie',
-            'level_id'=> '2',
-            'class_id'=> '2',
-            'email' => 'charlie',
-            'images' => 'beny.png',
-            'password' => bcrypt('12345'),
-            'created_at' => Carbon::now(),
-        ]);
-        DB::table('users')->insert([
-            'id'=> '5',
-            'name' => 'Denis',
-            'level_id'=> '2',
-            'class_id'=> '1',
-            'email' => 'denis',
-            'images' => 'anang.png',
-            'password' => bcrypt('12345'),
-            'created_at' => Carbon::now(),
-        ]);
-        DB::table('users')->insert([
-            'id'=> '6',
-            'name' => 'Eddie',
-            'level_id'=> '2',
-            'class_id'=> '1',
-            'email' => 'eddie',
-            'images' => 'anang.png',
-            'password' => bcrypt('12345'),
-            'created_at' => Carbon::now(),
-        ]);
-        DB::table('users')->insert([
-            'id'=> '7',
-            'name' => 'Fransisco',
-            'level_id'=> '2',
-            'class_id'=> '2',
-            'email' => 'Fransisco',
-            'images' => 'anang.png',
-            'password' => bcrypt('12345'),
-            'created_at' => Carbon::now(),
-        ]);
-        DB::table('users')->insert([
-            'id'=> '8',
-            'name' => 'Giant',
-            'level_id'=> '2',
-            'class_id'=> '1',
-            'email' => 'giant',
-            'images' => 'anang.png',
-            'password' => bcrypt('12345'),
-            'created_at' => Carbon::now(),
-        ]);
-        DB::table('users')->insert([
-            'id'=> '9',
-            'name' => 'Harry',
-            'level_id'=> '2',
-            'class_id'=> '2',
-            'email' => 'harry',
-            'images' => 'anang.png',
-            'password' => bcrypt('12345'),
-            'created_at' => Carbon::now(),
-        ]);
-        DB::table('users')->insert([
-            'id'=> '10',
-            'name' => 'Iqbal',
-            'level_id'=> '2',
-            'class_id'=> '1',
-            'email' => 'iqbal',
-            'images' => 'anang.png',
-            'password' => bcrypt('12345'),
-            'created_at' => Carbon::now(),
-        ]);
-        DB::table('users')->insert([
-            'id'=> '11',
-            'name' => 'Juki',
-            'level_id'=> '2',
-            'class_id'=> '2',
-            'email' => 'juki',
-            'images' => 'anang.png',
-            'password' => bcrypt('12345'),
-            'created_at' => Carbon::now(),
-        ]);
-        DB::table('users')->insert([
-            'id'=> '12',
-            'name' => 'Kirana',
-            'level_id'=> '2',
-            'class_id'=> '1',
-            'email' => 'Kirana',
-            'images' => 'anang.png',
-            'password' => bcrypt('12345'),
-            'created_at' => Carbon::now(),
-        ]);
-        DB::table('users')->insert([
-            'id'=> '13',
-            'name' => 'Leroy',
-            'level_id'=> '2',
-            'class_id'=> '2',
-            'email' => 'leroy',
-            'images' => 'anang.png',
-            'password' => bcrypt('12345'),
-            'created_at' => Carbon::now(),
-        ]);
+      
         DB::table('users')->insert([
             'id'=> '14',
             'name' => 'Mochtar',

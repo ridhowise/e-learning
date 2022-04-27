@@ -79,8 +79,12 @@
   }
   
   body {
-    background-color: #abe9cd;
-    background-image: linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%);
+    background-color: #ffb7ae;
+    background-image: url("https://i.ibb.co/thKK7bb/background.jpg");
+    background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-size: cover;
+  
     color: var(--bodyColor);
     font-family: var(--bodyFontFamily), var(--bodyFontFamilyFallback);
     font-size: var(--bodyFontSize);
@@ -157,11 +161,11 @@
     --loginInputBackgroundColor: rgba(244, 241, 241, 0.886);
     --loginInputHoverBackgroundColor: #fff;
   
-    --loginLabelBackgroundColor: #23395d;
+    --loginLabelBackgroundColor: #cf000f;
   
-    --loginSubmitBackgroundColor: #23395d;
+    --loginSubmitBackgroundColor: #cf000f;
     --loginSubmitColor: #eee;
-    --loginSubmitHoverBackgroundColor: #1c2e4a;
+    --loginSubmitHoverBackgroundColor: #af020e;
   }
   
   .login {

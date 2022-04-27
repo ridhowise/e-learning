@@ -9,8 +9,9 @@
           <body class="align">
 
             <div class="grid">
-              <img src="adm/img/logo.png" alt="logo" style="width:50%;display: block;margin-left: auto;margin-right: auto;">
-              <h3 class="text--center" style="color:#2980b9"><strong>LOGIN</strong> </h3>
+              <img src="adm/img/logo.png" alt="logo" style="width:100%;display: block;margin-left: auto;margin-right: auto;">
+              
+              <h3 class="text--center" style="color:red"><strong>LOGIN</strong> </h3>
               <hr style="visibility: hidden">
               <form action="{{ route('login') }}" method="POST" class="form login">
                 @csrf

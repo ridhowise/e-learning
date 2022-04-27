@@ -218,6 +218,84 @@ class CreateUsersTable extends Migration
 
 
         });
+
+      // barang BARANG
+
+         Schema::create('barang', function (Blueprint $kolom) {
+            $kolom->increments('id');
+            $kolom->string('nama')->nullable();
+            $kolom->string('tipe')->nullable();
+            $kolom->integer('jumlah')->nullable();
+            $kolom->integer('max')->nullable();
+            $kolom->string('satuan')->nullable();
+            $kolom->integer('harga')->nullable();
+            $kolom->timestamps();
+        });
+
+         Schema::create('masuk', function (Blueprint $kolom) {
+            $kolom->increments('id');
+            $kolom->string('file');
+        	$kolom->string('tanggal')->nullable();
+            $kolom->unsignedInteger('user_id')->nullable();
+            $kolom->timestamps();
+        });
+
+ 		Schema::table('masuk', function (Blueprint $kolom) {
+            $kolom->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+
+
+        });
+
+         Schema::create('barangmasuk', function (Blueprint $kolom) {
+            $kolom->increments('id');
+            $kolom->integer('masuk')->nullable();
+            $kolom->unsignedInteger('masuk_id')->nullable();
+            $kolom->unsignedInteger('barang_id')->nullable();
+            $kolom->timestamps();
+        });
+      
+        Schema::table('barangmasuk', function (Blueprint $kolom) {
+            $kolom->foreign('masuk_id')->references('id')->on('masuk')->onDelete('cascade')->onUpdate('cascade');
+            $kolom->foreign('barang_id')->references('id')->on('barang')->onDelete('cascade')->onUpdate('cascade');
+
+
+
+        });
+
+         Schema::create('keluar', function (Blueprint $kolom) {
+            $kolom->increments('id');
+            $kolom->string('file');
+            $kolom->string('surat')->nullable();;
+            $kolom->string('status');
+            $kolom->string('tanggal')->nullable();
+            $kolom->unsignedInteger('user_id')->nullable();
+            $kolom->timestamps();
+        });
+
+ 		Schema::table('keluar', function (Blueprint $kolom) {
+            $kolom->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+
+
+        });
+
+         Schema::create('barangkeluar', function (Blueprint $kolom) {
+            $kolom->increments('id');
+            $kolom->integer('keluar')->nullable();
+            $kolom->unsignedInteger('keluar_id')->nullable();
+            $kolom->unsignedInteger('barang_id')->nullable();
+            $kolom->timestamps();
+        });
+      
+        Schema::table('barangkeluar', function (Blueprint $kolom) {
+            $kolom->foreign('keluar_id')->references('id')->on('keluar')->onDelete('cascade')->onUpdate('cascade');
+            $kolom->foreign('barang_id')->references('id')->on('barang')->onDelete('cascade')->onUpdate('cascade');
+
+
+
+        });
+      
+        
+      
     }
 
     /**

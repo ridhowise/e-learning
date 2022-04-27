@@ -39,7 +39,7 @@
   <div class="blog-header">
     <div class="blog-cover">
       <div class="blog-author">
-        <h3>E-Learning</h3>
+        <h3>SATPOL PP KOTA BITUNG</h3>
         <ol class="breadcrumb float-left float-md-right">
           <li class="breadcrumb-item"><a href="{{ url()->previous() }}">BACK <i class="fa fa-arrow-left"></i></a></li>
       
@@ -82,7 +82,7 @@
   
   <div class="blog-header">
       <div class="blog-author">
-        <h3>E-Learning</h3>
+        <h3>SATPOL PP KOTA BITUNG</h3>
       </div>
   </div>
 
@@ -202,7 +202,7 @@
   
   <div class="blog-header">
       <div class="blog-author">
-        <h3>E-Learning</h3>
+        <h3>SATPOL PP KOTA BITUNG</h3>
       </div>
   </div>
 
@@ -625,7 +625,7 @@ body {
    color: #ff4d4d;
 }
  .blog-cover {
-   background: url("https://i.ibb.co/J7BGKgk/blue.jpg");
+   background: url("https://i.ibb.co/MgC1QXw/red.jpg");
    background-size: cover;
    border-radius: 5px 5px 0 0;
    height: 15rem;
