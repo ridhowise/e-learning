@@ -63,6 +63,8 @@ Route::get('/barangmasuk/{id}', 'barangmasukController@index')->name('barangmasu
 Route::resource('keluar', 'keluarController')->middleware('auth');
 Route::get('/barangkeluar/{id}', 'barangkeluarController@index')->name('barangkeluar')->middleware('auth');
 Route::post('/barangkeluar/{id}', 'barangkeluarController@store')->name('store')->middleware('auth');
+Route::get('/products/create-pdf/{id}', 'barangkeluarController@exportPDF')->name('exportPDF')->middleware('auth');
+Route::get('/products/createe-pdf', 'persediaanController@exportPDF')->name('exportPDF')->middleware('auth');
 Route::get('/nilai/{id}', 'nilaiController@index')->name('nilai')->middleware('auth');
 Route::post('/nilai/{id}', 'nilaiController@store')->name('store')->middleware('auth');
 Route::get('/soal/{id}', 'soalController@index')->name('soal')->middleware('auth');

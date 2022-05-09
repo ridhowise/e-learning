@@ -83,6 +83,7 @@ class keluarController extends Controller
 
             $dataz = new barangkeluar;
             $dataz->barang_id = $barang_id;
+            $dataz->tanggal = $request->tanggal;
             $dataz->keluar_id = $data->id;
             $dataz->keluar = $jumlahs[$key];
             $dataz->save();

@@ -53,7 +53,7 @@ class CreateUsersTable extends Migration
          Schema::create('masuk', function (Blueprint $kolom) {
             $kolom->increments('id');
             $kolom->string('file');
-        	$kolom->string('tanggal')->nullable();
+        	$kolom->date('tanggal')->nullable();
             $kolom->unsignedInteger('user_id')->nullable();
             $kolom->timestamps();
         });
@@ -66,7 +66,7 @@ class CreateUsersTable extends Migration
 
          Schema::create('barangmasuk', function (Blueprint $kolom) {
             $kolom->increments('id');
-            $kolom->string('tanggal')->nullable();
+            $kolom->date('tanggal')->nullable();
             $kolom->integer('masuk')->nullable();
             $kolom->unsignedInteger('masuk_id')->nullable();
             $kolom->unsignedInteger('barang_id')->nullable();
@@ -86,7 +86,7 @@ class CreateUsersTable extends Migration
             $kolom->string('file')->nullable();
             $kolom->string('surat')->nullable();
             $kolom->string('status');
-            $kolom->string('tanggal')->nullable();
+            $kolom->date('tanggal')->nullable();
             $kolom->unsignedInteger('user_id')->nullable();
             $kolom->timestamps();
         });
@@ -99,7 +99,7 @@ class CreateUsersTable extends Migration
 
          Schema::create('barangkeluar', function (Blueprint $kolom) {
             $kolom->increments('id');
-            $kolom->string('tanggal')->nullable();
+            $kolom->date('tanggal')->nullable();
             $kolom->integer('keluar')->nullable();
             $kolom->unsignedInteger('keluar_id')->nullable();
             $kolom->unsignedInteger('barang_id')->nullable();

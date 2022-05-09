@@ -4,10 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Models\masuk;
 use App\Models\persediaan;
+use App\Models\barangmasuk;
+use App\Models\keluar;
+use App\Models\barangkeluar;
 use Image;
 use File;
 use Auth;
+use PDF;
+
+
 use Carbon\Carbon;
 use App\Models\User;
 use Maatwebsite\Excel\Facades\Excel;
@@ -31,9 +38,33 @@ class persediaanController extends Controller
     public function index()
     {
         $data=persediaan::all();
-        
+        $barangmasuk=barangmasuk::where("tanggal",">", Carbon::now()->subMonths(3))->groupBy('tanggal')->get();
+        $barangmasuktd=[];
+        $barangkeluar=barangkeluar::where("tanggal",">", Carbon::now()->subMonths(3))->groupBy('tanggal')->get();
+        $barangkeluartd=[];
 
-        return view('persediaan.index',compact('data'));
+        foreach($barangmasuk as $b) {
+            $barangmasuktd[$b->tanggal] = null;
+        }
+        foreach($barangmasuktd as $key => $value) {
+            $currentDateItems = barangmasuk::where('tanggal', $key)->get();
+            foreach($currentDateItems as $cur) {
+                $barangmasuktd[$key]["key_" . $cur->barang_id] = $cur->masuk;
+            }
+        }
+        foreach($barangkeluar as $c) {
+            $barangkeluartd[$c->tanggal] = null;
+        }
+        foreach($barangkeluartd as $keys => $value) {
+            $currentDateItemss = barangkeluar::where('tanggal', $keys)->get();
+            foreach($currentDateItemss as $curs) {
+                $barangkeluartd[$keys]["key_" . $curs->barang_id] = $curs->keluar;
+            }
+        }
+
+        
+        // dd($barangmasuktd["2022-04-28"]["key_1"]);
+        return view('persediaan.index',compact('data','barangmasuk', 'barangmasuktd','barangkeluar','barangkeluartd'));
     }
 
     /**
@@ -160,4 +191,37 @@ class persediaanController extends Controller
 	{
 		return Excel::download(new ExportExcel, 'data.xlsx');
 	}
+
+    public function exportPDF() {
+
+        $data=persediaan::all();
+        $barangmasuk=barangmasuk::where("tanggal",">", Carbon::now()->subMonths(3))->groupBy('tanggal')->get();
+        $barangmasuktd=[];
+        $barangkeluar=barangkeluar::where("tanggal",">", Carbon::now()->subMonths(3))->groupBy('tanggal')->get();
+        $barangkeluartd=[];
+
+        foreach($barangmasuk as $b) {
+            $barangmasuktd[$b->tanggal] = null;
+        }
+        foreach($barangmasuktd as $key => $value) {
+            $currentDateItems = barangmasuk::where('tanggal', $key)->get();
+            foreach($currentDateItems as $cur) {
+                $barangmasuktd[$key]["key_" . $cur->barang_id] = $cur->masuk;
+            }
+        }
+        foreach($barangkeluar as $c) {
+            $barangkeluartd[$c->tanggal] = null;
+        }
+        foreach($barangkeluartd as $keys => $value) {
+            $currentDateItemss = barangkeluar::where('tanggal', $keys)->get();
+            foreach($currentDateItemss as $curs) {
+                $barangkeluartd[$keys]["key_" . $curs->barang_id] = $curs->keluar;
+            }
+        }
+        
+        $pdf_doc = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('exportt_pdf', array('data' => $data,'barangmasuk' => $barangmasuk, 'barangmasuktd' => $barangmasuktd,'barangkeluar' => $barangkeluar,'barangkeluartd' => $barangkeluartd))->setPaper('a4', 'landscape');
+
+        return $pdf_doc->download('persediaan.pdf');
+        // return PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('reports.invoiceSell')->stream();
+    }    
 }

@@ -11,8 +11,10 @@
 
             <h1 class="h3 mb-2 text-gray-800">Persediaan <a href="{{ url('persediaan/create') }}" class="btn btn-sm btn-primary"
                     data-toggle="modal" data-target="#adds">Tambah List Barang</a>
+                    <a href="/products/createe-pdf" class="btn btn-sm btn-success"
+                    >Export PDF</a>
             </h1>
-        
+            
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -36,6 +38,12 @@
                                     <th>Tipe</th>
                                     <th>Nama</th>
                                     <th>Max</th>
+                                    @foreach($barangmasuk as $key =>$items)
+                                        <th  style="background-color:#2ecc71;color:white" >{{$items->tanggal}}</th>
+                                    @endforeach
+                                    @foreach($barangkeluar as $key =>$items)
+                                        <th style="background-color:#ff4d4d;color:white" >{{$items->tanggal}}</th>
+                                    @endforeach
                                     <th>Jumlah</th>
                                     <th>Satuan</th>
                                     <th>Harga</th>
@@ -45,36 +53,50 @@
 
                             <tbody style="color:black">
 
-                                    @foreach ($data as $key => $items)
-                                    @if ($items->tipe == 1)
-                                    <td>Alat Tulis Kantor</td>
-                                    @else
-                                    <td>Alat Kebersihan</td>
-                                    @endif
-                            
-                                    <td>{{ $items->nama }}</td>
-                                    <td>{{ $items->max }}</td>
-                                    @if($items->jumlah == 0)
-                                    <td style="background-color:red;color:white">{{ $items->jumlah }}</td>
-                                    @else
-                                    <td style="background-color:green;color:white">{{ $items->jumlah }}</td>
-                                    @endif
-                                    <td>{{ $items->satuan }}</td>
-                                    <td>{{ $items->harga }}</td>
-                                    <td>
-                                        <form action="{{ route('persediaan.destroy', $items->id) }}" method="post">
-                                            {{ csrf_field() }}
-                                            {{ method_field('DELETE') }}
-                                            {{-- <a href="{{ route('quiz.show',$items->id) }}">Show</a> --}}
-                                            {{-- <a class="btn btn-sm btn-primary" type="submit"
-                                                href="nilai/{{ $items->id }}"><i class="fas fa-eye"></i> Lihat Detail</a> --}}
-                                            <button type="button" onclick="showEdit({{ $items->id }})"
-                                                class="btn btn-sm btn-success">Edit</a>
+                                @foreach ($data as $key => $items)
+                                    <tr>
+                                        @if ($items->tipe == 1)
+                                        <td>Alat Tulis Kantor</td>
+                                        @else
+                                        <td>Alat Kebersihan</td>
+                                        @endif
+                                
+                                        <td>{{ $items->nama }}</td>
+                                        <td>{{ $items->max }}</td>
+                                        {{-- <tr> --}}
+                                        @foreach($barangmasuk as $key =>$bm)
+                                            <td  style="background-color:#2ecc71;color:white">{{isset($barangmasuktd[$bm->tanggal]["key_".$items->id]) ? $barangmasuktd[$bm->tanggal]["key_".$items->id]  : ''}}</td>
+                                        @endforeach
+                                        {{-- </tr> --}}
+                                        {{-- <tr> --}}
+                                        @foreach($barangkeluar as $key =>$bk)
+                                        <td style="background-color:#ff4d4d;color:white">{{isset($barangkeluartd[$bk->tanggal]["key_".$items->id]) ? $barangkeluartd[$bk->tanggal]["key_".$items->id]  : ''}}</td>
+                                    @endforeach
+                                        {{-- </tr> --}}
+                                        @if($items->jumlah == 0)
+                                            <td style="background-color:red;color:white" >{{ $items->jumlah }}</td>
+                                        @else
+                                        <td style="background-color:green;color:white" >{{ $items->jumlah }}</td>
+                                        @endif
 
-                                                <button class="btn btn-sm btn-danger" type="submit"
-                                                    onclick="return confirm('Yakin ingin menghapus data?')">Delete</button>
-                                        </form>
-                                    </td>
+                                        
+
+                                        <td>{{ $items->satuan }}</td>
+                                        <td>{{ $items->harga }}</td>
+                                        <td>
+                                            <form action="{{ route('persediaan.destroy', $items->id) }}" method="post">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+                                                {{-- <a href="{{ route('quiz.show',$items->id) }}">Show</a> --}}
+                                                {{-- <a class="btn btn-sm btn-primary" type="submit"
+                                                    href="nilai/{{ $items->id }}"><i class="fas fa-eye"></i> Lihat Detail</a> --}}
+                                                {{-- <button type="button" onclick="showEdit({{ $items->id }})"
+                                                    class="btn btn-sm btn-success">Edit</a> --}}
+
+                                                    <button class="btn btn-sm btn-danger" type="submit"
+                                                        onclick="return confirm('Yakin ingin menghapus data?')">Delete</button>
+                                            </form>
+                                        </td>
                                     </tr>
 
                                 @endforeach

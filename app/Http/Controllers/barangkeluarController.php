@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\persediaan;
 use App\Models\barangkeluar;
 use App\Models\keluar;
-
+use PDF;
 use Image;
 use File;
 use Auth;
@@ -198,4 +198,16 @@ class barangkeluarController extends Controller
 	{
 		return Excel::download(new ExportExcel, 'data.xlsx');
 	}
+
+    public function exportPDF($id) {
+
+        $data=keluar::findOrFail($id);
+        $barangkeluar=barangkeluar::where('keluar_id',$id)->get();
+        $barangs=persediaan::all();
+        
+        $pdf_doc = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('export_pdf', array('data' => $data,'barangkeluar'=>$barangkeluar,'barangs'=>$barangs));
+
+        return $pdf_doc->download('rekap.pdf');
+        // return PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('reports.invoiceSell')->stream();
+    }    
 }

@@ -51,6 +51,9 @@
     <br>
     <div class="blog-title">
       <h2>Tanggal : {{$data->tanggal}}</h2>
+      <div class="d-flex flex-row-reverse bd-highlight mb-3">
+        <a class="btn btn-success" href="/products/create-pdf/{{$data->id}}">Download PDF</a>
+    </div>
     </div>
     <br>
     <div class="blog-summary">

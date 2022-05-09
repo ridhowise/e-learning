@@ -10,88 +10,52 @@
 </head>
 
 <style>
-  h1 {
-  border-top: 1px solid  #5D6975;
-  border-bottom: 1px solid  #5D6975;
-  color: #5D6975;
-  font-size: 2.4em;
-  line-height: 1.4em;
-  font-weight: normal;
-  text-align: center;
-  margin: 0 0 20px 0;
-  background: url(http://i.ibb.co/gyyKCT6/dimension.png);
-}
+  
 
-#logo {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-#logo img {
-  width: 90px;
-}
 </style>
 
 <body class="antialiased container mt-5">
-  <div id="logo">
-    <img src="http://i.ibb.co/kxFwpvN/logo.png">
-  </div>
-  <h1>REKAP PERTEMUAN</h1>
-
-     Nama : {{$user->user->name}}
-     <br>
-     Kehadiran : {{$hadir}}
-     <br>
-     Total Pertemuan : {{$totalhadir}}
-     <br>
-     Nilai : {{$nilai}}
+  <table width="100%">
+    <tr>
+    <td  align="center"><img src="https://i.ibb.co/hZWWpz1/logo.png" width="60px"></td>
+    <td  align="center"><h6><b>PEMERINTAH KOTA BITUNG</b></h6><h5><b>SATUAN POLISI PAMONG PRAJA</h5></b><h6>Jln.Dr.Sam Ratulangi No.45 Bitung</h6></td>
+    <td  align="center"><img src="https://i.ibb.co/dDvYw2r/logow.png" width="60px"></td>
+    </tr>
+    </table> 
+    <hr style="height:5px;
+    border-top:1px solid black;
+    border-bottom:2px solid black;">
+    <table width="100%">
+      <tr>
+        <td  align="center"><h6><b><u>BUKTI PENYALURAN BARANG</u></b></h6></td>
+      </tr>
+    </table>
      <br>
      <br>
     <table class="table">
-        <thead>
-            <tr class="table-primary">
-                <th>Pertemuan</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-          <tr>
-            @foreach($kehadiran as $key => $items)
+      <thead style="">
+        <tr>
+          <th>Nama</th>
+          <th>Jumlah</th>
+          <th>Satuan</th>
 
-            <td>{{ $items->pertemuan->meetingname->name }} </td>
-
-            @if($items->status == 0)
-            <td>
-              
-              <button type="button" class="btn btn-danger">
-               <i class="glyphicon glyphicon-download">
-                Tidak Hadir
-                </i>
-              </button>
-         
-              </td>
-
-            @else
-            <td>
-              
-              <button type="button" class="btn btn-success">
-               <i class="glyphicon glyphicon-download">
-                Hadir
-                </i>
-              </button>
-         
-              </td>
-          
+        </tr>
+      </thead>
+      
+      <tbody>
+       
+     @foreach($barangkeluar as $key => $items)
+            <td>{{ $items->barang->nama }} </td>
+            <td>{{ $items->keluar }} </td>
+            <td>{{ $items->barang->satuan }} </td>
            
-              @endif
 
-           
-          
+
            
           </tr>
           
           @endforeach
-        </tbody>
+      </tbody>
     </table>
 </body>
 
