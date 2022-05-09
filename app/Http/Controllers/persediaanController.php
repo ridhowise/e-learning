@@ -189,7 +189,8 @@ class persediaanController extends Controller
     }
     public function export_excel()
 	{
-		return Excel::download(new ExportExcel, 'data.xlsx');
+        return Excel::download(new ExportExcel, 'export.xlsx');
+    
 	}
 
     public function exportPDF() {

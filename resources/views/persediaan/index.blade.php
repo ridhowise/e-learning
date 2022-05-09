@@ -11,9 +11,12 @@
 
             <h1 class="h3 mb-2 text-gray-800">Persediaan <a href="{{ url('persediaan/create') }}" class="btn btn-sm btn-primary"
                     data-toggle="modal" data-target="#adds">Tambah List Barang</a>
-                    <a href="/products/createe-pdf" class="btn btn-sm btn-success"
-                    >Export PDF</a>
+                    {{-- <a href="/products/createe-pdf" class="btn btn-sm btn-success"
+                    >Export PDF</a> --}}
+                    <a href="{{ url('persediaans/export_excel') }}" class="btn btn-sm btn-success"  >Export Excel</a>
             </h1>
+            
+
             
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
@@ -39,10 +42,10 @@
                                     <th>Nama</th>
                                     <th>Max</th>
                                     @foreach($barangmasuk as $key =>$items)
-                                        <th  style="background-color:#2ecc71;color:white" >{{$items->tanggal}}</th>
+                                        <th  style="background-color:green;color:white" >{{$items->tanggal}}</th>
                                     @endforeach
                                     @foreach($barangkeluar as $key =>$items)
-                                        <th style="background-color:#ff4d4d;color:white" >{{$items->tanggal}}</th>
+                                        <th style="background-color:red;color:white" >{{$items->tanggal}}</th>
                                     @endforeach
                                     <th>Jumlah</th>
                                     <th>Satuan</th>
@@ -65,12 +68,12 @@
                                         <td>{{ $items->max }}</td>
                                         {{-- <tr> --}}
                                         @foreach($barangmasuk as $key =>$bm)
-                                            <td  style="background-color:#2ecc71;color:white">{{isset($barangmasuktd[$bm->tanggal]["key_".$items->id]) ? $barangmasuktd[$bm->tanggal]["key_".$items->id]  : ''}}</td>
+                                            <td  style="background-color:#2ecc71;color:black">{{isset($barangmasuktd[$bm->tanggal]["key_".$items->id]) ? $barangmasuktd[$bm->tanggal]["key_".$items->id]  : ''}}</td>
                                         @endforeach
                                         {{-- </tr> --}}
                                         {{-- <tr> --}}
                                         @foreach($barangkeluar as $key =>$bk)
-                                        <td style="background-color:#ff4d4d;color:white">{{isset($barangkeluartd[$bk->tanggal]["key_".$items->id]) ? $barangkeluartd[$bk->tanggal]["key_".$items->id]  : ''}}</td>
+                                        <td style="background-color:#ff4d4d;color:black">{{isset($barangkeluartd[$bk->tanggal]["key_".$items->id]) ? $barangkeluartd[$bk->tanggal]["key_".$items->id]  : ''}}</td>
                                     @endforeach
                                         {{-- </tr> --}}
                                         @if($items->jumlah == 0)

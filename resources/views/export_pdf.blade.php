@@ -14,7 +14,7 @@
 
 </style>
 
-<body class="antialiased container mt-5">
+<body >
   <table width="100%">
     <tr>
     <td  align="center"><img src="https://i.ibb.co/hZWWpz1/logo.png" width="60px"></td>
