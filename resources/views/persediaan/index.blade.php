@@ -68,12 +68,12 @@
                                         <td>{{ $items->max }}</td>
                                         {{-- <tr> --}}
                                         @foreach($barangmasuk as $key =>$bm)
-                                            <td  style="background-color:#2ecc71;color:black">{{isset($barangmasuktd[$bm->tanggal]["key_".$items->id]) ? $barangmasuktd[$bm->tanggal]["key_".$items->id]  : ''}}</td>
+                                            <td  style="background-color:#2ecc71;color:white"><b>{{isset($barangmasuktd[$bm->tanggal]["key_".$items->id]) ? $barangmasuktd[$bm->tanggal]["key_".$items->id]  : ''}}</td>
                                         @endforeach
                                         {{-- </tr> --}}
                                         {{-- <tr> --}}
                                         @foreach($barangkeluar as $key =>$bk)
-                                        <td style="background-color:#ff4d4d;color:black">{{isset($barangkeluartd[$bk->tanggal]["key_".$items->id]) ? $barangkeluartd[$bk->tanggal]["key_".$items->id]  : ''}}</td>
+                                        <td style="background-color:#ff4d4d;color:white"><b>{{isset($barangkeluartd[$bk->tanggal]["key_".$items->id]) ? $barangkeluartd[$bk->tanggal]["key_".$items->id]  : ''}}</td>
                                     @endforeach
                                         {{-- </tr> --}}
                                         @if($items->jumlah == 0)

@@ -3,14 +3,14 @@
 
 <thead style="color:red">
     <tr>
-        <th>Tipe</th>
-        <th >Nama</th>
+        <th width="20">Tipe</th>
+        <th width="30">Nama</th>
         <th>Max</th>
         @foreach($barangmasuk as $key =>$items)
-            <th  style="background-color:green;color:white" >{{$items->tanggal}}</th>
+            <th width="10" style="background-color:green;color:white" >{{$items->tanggal}}</th>
         @endforeach
         @foreach($barangkeluar as $key =>$items)
-            <th style="background-color:red;color:white" >{{$items->tanggal}}</th>
+            <th width="10" style="background-color:red;color:white" >{{$items->tanggal}}</th>
         @endforeach
         <th>Jumlah</th>
         <th>Satuan</th>
